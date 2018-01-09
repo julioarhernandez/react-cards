@@ -8,15 +8,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      cards: []
     };
   }
 
   componentDidMount() {
-    axios.get('/api/book')
+    axios.get('/api/card')
       .then(res => {
-        this.setState({ books: res.data });
-        console.log(this.state.books);
+        this.setState({ cards: res.data });
+        console.log(this.state.cards);
       });
   }
 
@@ -40,11 +40,11 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.books.map(book =>
+                {this.state.cards.map(card =>
                   <tr>
-                    <td><Link to={`/show/${book._id}`}>{book.isbn}</Link></td>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
+                    <td><Link to={`/show/${card._id}`}>{card.isbn}</Link></td>
+                    <td>{card.title}</td>
+                    <td>{card.author}</td>
                   </tr>
                 )}
               </tbody>

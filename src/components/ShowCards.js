@@ -7,21 +7,21 @@ class ShowCards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      book: {}
+      card: {}
     };
   }
 
   componentDidMount() {
-    axios.get('/api/book/'+this.props.match.params.id)
+    axios.get('/api/card/'+this.props.match.params.id)
       .then(res => {
-        this.setState({ book: res.data });
-        console.log(this.state.book);
+        this.setState({ card: res.data });
+        console.log(this.state.card);
       });
   }
 
   delete(id){
     console.log(id);
-    axios.delete('/api/book/'+id)
+    axios.delete('/api/card/'+id)
       .then((result) => {
         this.props.history.push("/")
       });
@@ -33,25 +33,25 @@ class ShowCards extends Component {
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              {this.state.book.title}
+              {this.state.card.title}
             </h3>
           </div>
           <div class="panel-body">
-            <h4><Link to="/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Book List</Link></h4>
+            <h4><Link to="/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> card List</Link></h4>
             <dl>
               <dt>ISBN:</dt>
-              <dd>{this.state.book.isbn}</dd>
+              <dd>{this.state.card.isbn}</dd>
               <dt>Author:</dt>
-              <dd>{this.state.book.author}</dd>
+              <dd>{this.state.card.author}</dd>
               <dt>Description:</dt>
-              <dd>{this.state.book.description}</dd>
+              <dd>{this.state.card.description}</dd>
               <dt>Publish Date:</dt>
-              <dd>{this.state.book.published_year}</dd>
+              <dd>{this.state.card.published_year}</dd>
               <dt>Publisher:</dt>
-              <dd>{this.state.book.publisher}</dd>
+              <dd>{this.state.card.publisher}</dd>
             </dl>
-            <Link to={`/edit/${this.state.book._id}`} class="btn btn-success">Edit</Link>&nbsp;
-            <button onClick={this.delete.bind(this, this.state.book._id)} class="btn btn-danger">Delete</button>
+            <Link to={`/edit/${this.state.card._id}`} class="btn btn-success">Edit</Link>&nbsp;
+            <button onClick={this.delete.bind(this, this.state.card._id)} class="btn btn-danger">Delete</button>
           </div>
         </div>
       </div>
