@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var random = require('random-js');
 var Cards = require('../models/Cards.js');
+const ObjectId = require("mongodb").ObjectID;
 
 /* GET ALL CardsS */
 router.get('/', function(req, res, next) {
@@ -29,9 +30,19 @@ router.get('/:id', function(req, res, next) {
 // });
 
 /* GET single card BY ID */
-router.get('/getcard/:id', function(req, res, next) {
-  Cards.aggregate([{$unwind: "$cards"}, {$match:{"cards._id" : new ObjectId(req.params.id)}}], function (err, post) {
-  // Cards.find({ _id: new ObjectId(req.params.id)}, function (err, post) {
+router.get('/getcard/:cardId', function(req, res, next) {
+  cardId = new ObjectId(req.params.cardId);
+  Cards.aggregate([
+    {$unwind: "$cards" },
+    {$match: { "cards._id": cardId}},
+    {$project: {
+      beName: 1,
+      beLink: 1,
+      bizId: 1,
+      veSlug: 1,
+      "cards._id": 1,
+      cardContent: { $substrBytes: [ "$cards.cardContent" , 0 , 20 ]}
+  }}], function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -71,7 +82,14 @@ router.post('/addcard/:id', function(req, res, next) {
 
 
 router.get('/venue/:venueSlug', function(req, res, next) {
-
+// TODO - remove this agregation and replace by a simple find
+// This was done to trunckate the cardContent, in next development
+// we'll use the whole cardContent data in the same card, and when
+// you click it it'll just expand as a modal window.
+// Cards.find({veSlug : req.params.venueSlug}, function (err, post) {
+//   if (err) return next(err);
+//   res.json(post);
+// }).select({ "beName": 1,  "beLink": 1, "cards.cardContent" : 1, "_id": 0});
   Cards.aggregate([
     {$unwind: "$cards" },
     {$match: { veSlug: req.params.venueSlug}},
@@ -85,10 +103,6 @@ router.get('/venue/:venueSlug', function(req, res, next) {
     if (err) return next(err);
     res.json(post);
   });
-  // Cards.find({veSlug : req.params.venueSlug}, function (err, post) {
-  //   if (err) return next(err);
-  //   res.json(post);
-  // }).select({ "beName": 1,  "beLink": 1, "cards.cardContent" : 1, "_id": 0});
 });
 
 
