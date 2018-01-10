@@ -9,6 +9,8 @@ import registerServiceWorker from './registerServiceWorker';
 import Edit from './components/Edit';
 import Create from './components/Create';
 import Show from './components/Show';
+import ShowCards from './components/ShowCards';
+import ShowCard from './components/ShowCard';
 
 ReactDOM.render(
   <Router>
@@ -16,7 +18,8 @@ ReactDOM.render(
         <Route exact path='/' component={App} />
         <Route path='/edit/:id' component={Edit} />
         <Route path='/create' component={Create} />
-        <Route path='/show/:id' component={Show} />
+        <Route path='/showvenue/:id' component={ShowCards} />
+        <Route path='/showcard/:id' component={ShowCard} />
       </div>
   </Router>,
   document.getElementById('root')

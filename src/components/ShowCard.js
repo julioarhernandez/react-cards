@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
-class ShowCards extends Component {
+class ShowCard extends Component {
 
   constructor(props) {
     super(props);
@@ -15,7 +15,7 @@ class ShowCards extends Component {
   
 
   componentDidMount() {
-    axios.get('/api/cards/venues/'+this.props.match.params.id)
+    axios.get('/api/cards/getcard/'+this.props.match.params.id)
       .then(res => {
         // var groupBy = function(xs, key) {
         //   return xs.reduce(function(rv, x) {
@@ -40,31 +40,15 @@ class ShowCards extends Component {
   // }
 
   render() {
-    var settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      className: "innerSlide",
-      arrows: true
-    };
     return (
       <div>
-        {this.state.cards.map( car=> 
-        <Slider {...settings}>
-          {car.cards.map( tar=> 
-            <div class="roundCard">
-              <a href={tar.cardLink}><img src={tar.cardImgSrc} /></a>
-              <h2>{tar.cardTitle}</h2>
-              
-            </div>
-          )}    
-        </Slider>
-        )}
+        <div class="roundCard">
+            <a href={this.state.cards.cards.cardLink}><img src={this.state.cards.cards.cardImgSrc} /></a>
+            <h2>{this.state.cards.cards.cardTitle}</h2>
+        </div>
     </div>
     );
   }
 }
 
-export default ShowCards;
+export default ShowCard;

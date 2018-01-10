@@ -41,7 +41,9 @@ router.get('/getcard/:cardId', function(req, res, next) {
       bizId: 1,
       veSlug: 1,
       "cards._id": 1,
-      cardContent: { $substrBytes: [ "$cards.cardContent" , 0 , 20 ]}
+      "cards.cardTitle": 1,
+      "cards.cardImgSrc": 1,
+      "cards.cardContent": 1
   }}], function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -97,13 +99,27 @@ router.get('/venue/:venueSlug', function(req, res, next) {
       beName: 1,
       beLink: 1,
       bizId: 1,
+      "cards.cardImgSrc": 1,
+      "cards.cardTitle": 1,
       veSlug: 1,
-      cardContent: { $substrBytes: [ "$cards.cardContent" , 0 , 20 ]}
+      cardContent: { $substrBytes: [ "$cards.cardContent" , 0 , 200]}
   }}], function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+
+router.get('/venues/:venueSlug', function(req, res, next) {
+  // TODO - remove this agregation and replace by a simple find
+  // This was done to trunckate the cardContent, in next development
+  // we'll use the whole cardContent data in the same card, and when
+  // you click it it'll just expand as a modal window.
+  Cards.find({veSlug : req.params.venueSlug}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  }).select({ "beName": 1,  "beLink": 1, "cards.cardTitle" : 1, "cards.cardPosition" : 1, "cards.cardImgSrc" : 1, "cards.cardLink" : 1,  "_id": 0});
+  });
+  
 
 
 

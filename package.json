@@ -14,7 +14,9 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
-    "serve-favicon": "^2.4.5"
+    "react-slick": "^0.16.0",
+    "serve-favicon": "^2.4.5",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "node ./bin/www",

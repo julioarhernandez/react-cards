@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/card')
+    axios.get('/api/cards')
       .then(res => {
         this.setState({ cards: res.data });
         console.log(this.state.cards);
@@ -42,9 +42,8 @@ class App extends Component {
               <tbody>
                 {this.state.cards.map(card =>
                   <tr>
-                    <td><Link to={`/show/${card._id}`}>{card.isbn}</Link></td>
-                    <td>{card.title}</td>
-                    <td>{card.author}</td>
+                    <td><Link to={`/show/${card.beLink}`}>{card.beName}</Link></td>
+                    
                   </tr>
                 )}
               </tbody>
