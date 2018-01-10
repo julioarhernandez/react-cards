@@ -42,11 +42,16 @@ class ShowCard extends Component {
   render() {
     return (
       <div>
+        
+        {this.state.cards.map( car => 
         <div class="roundCard">
-            <a href={this.state.cards.cards.cardLink}><img src={this.state.cards.cards.cardImgSrc} /></a>
-            <h2>{this.state.cards.cards.cardTitle}</h2>
+            <img src={car.cards.cardImgSrc} />
+            <h2>{car.cards.cardTitle}</h2>
+            <p dangerouslySetInnerHTML={{ __html: car.cards.cardContent }}></p>
+        </div> 
+        
+        )}    
         </div>
-    </div>
     );
   }
 }
