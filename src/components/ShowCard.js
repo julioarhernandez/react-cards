@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import Header from './header';
 
 class ShowCard extends Component {
 
@@ -11,21 +12,10 @@ class ShowCard extends Component {
       cards: []
     };
   }
-
   
-
   componentDidMount() {
     axios.get('/api/cards/getcard/'+this.props.match.params.id)
       .then(res => {
-        // var groupBy = function(xs, key) {
-        //   return xs.reduce(function(rv, x) {
-        //     (rv[x[key]] = rv[x[key]] || []).push(x);
-        //     return rv;
-        //   }, {});
-        // };
-        // var groubedByTeam=groupBy(res.data, 'bizId')
-
-        // this.setState({ cards: groubedByTeam });
         this.setState({ cards: res.data });
         console.log(this.state.cards);
       });
@@ -42,11 +32,12 @@ class ShowCard extends Component {
   render() {
     return (
       <div>
-        
+         <Header showBack />
         {this.state.cards.map( car => 
-        <div class="roundCard">
+        <div class="roundCard card-only">
             <img src={car.cards.cardImgSrc} />
             <h2>{car.cards.cardTitle}</h2>
+            <hr />
             <p dangerouslySetInnerHTML={{ __html: car.cards.cardContent }}></p>
         </div> 
         

@@ -117,7 +117,7 @@ router.get('/venues/:venueSlug', function(req, res, next) {
   Cards.find({veSlug : req.params.venueSlug}, function (err, post) {
     if (err) return next(err);
     res.json(post);
-  }).select({ "beName": 1,  "beLink": 1, "cards.cardTitle" : 1, "cards.cardPosition" : 1, "cards.cardImgSrc" : 1, "cards.cardLink" : 1,  "_id": 0});
+  }).select({ "beName": 1,  "beLink": 1, "cards.cardTitle" : 1, "cards.cardPosition" : 1, "cards.cardImgSrc" : 1, "cards.cardLink" : 1,  "cards._id": 1});
   });
   
 

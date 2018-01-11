@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import Header from './header';
 
 class ShowCards extends Component {
 
@@ -50,12 +51,14 @@ class ShowCards extends Component {
       arrows: true
     };
     return (
+      
       <div>
+        <Header />
         {this.state.cards.map( car=> 
         <Slider {...settings}>
           {car.cards.map( tar=> 
             <div class="roundCard">
-              <a href={tar.cardLink}><img src={tar.cardImgSrc} /></a>
+              <a href={'/showcard/' + tar._id}><img src={tar.cardImgSrc} /></a>
               <h2>{tar.cardTitle}</h2>
               
             </div>
