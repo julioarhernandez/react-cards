@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from './components/header';
+import Header from './header';
 
 class App extends Component {
 
@@ -24,7 +23,6 @@ class App extends Component {
   render() {
     return (
       <Header />
-      
     );
   }
 }
