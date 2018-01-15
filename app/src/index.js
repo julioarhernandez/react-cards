@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import RouteApp from './components/RouteApp';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
+// Styles
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
+import './index.css';
+
+
+ReactDOM.render(
+  <RouteApp />, document.getElementById('root')
+);
+registerServiceWorker();
