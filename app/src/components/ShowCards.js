@@ -27,6 +27,7 @@ class ShowCards extends Component {
       dots: true,
       infinite: true,
       speed: 500,
+      swipe: true,
       slidesToShow: 1,
       slidesToScroll: 1,
       className: "innerSlide",

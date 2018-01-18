@@ -4,26 +4,45 @@ body {
   margin: 20px 0;
   padding: 0;
   font-family: sans-serif;
-  background: lightskyblue;}
+  background: lightskyblue;
+}
+
+/* Carousel slides */
 .slick-list, .slick-slider {
   margin-bottom: 50px;
   
 }
 .slick-list img, .slick-slider img{
-  /* max-height: 190px; */
   max-width: 100%;
   border-radius: 6px 6px 0px 0;
-}
-.innerSlide{
-  border-radius: 6px;
-  box-shadow: 2px 1px 18px #888888;
-  margin: 20px;
 }
 .slick-slide{
   border-radius: 6px;
   background-color: white;
   min-height: 303px;
 }
+.slick-next{
+  right: -20px;
+}
+.slick-prev{
+  left: -19px;
+  z-index: 1;
+}
+.slick-next, .slick-prev{
+  width: 41px;
+  height: 41px;
+}
+.slick-next:before, .slick-prev:before {
+  font-size: 41px;
+}
+
+/* Card slides */
+.innerSlide{
+  border-radius: 6px;
+  box-shadow: 2px 1px 18px #888888;
+  margin: 20px;
+}
+
 h2{
   font-family: sans-serif;
   font-size: 120%;
