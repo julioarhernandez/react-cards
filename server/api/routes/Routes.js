@@ -144,6 +144,7 @@ router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next
            "cards.$.cardBundle": req.body.cardBundle,
            "cards.$.cardLink": req.body.cardLink,
            "cards.$.cardTitle":  req.body.cardTitle,
+           "cards.$.cardContent":  req.body.cardContent,
            "cards.$.cardPosition": req.body.cardPosition,
            "cards.$.cardType":req.body.cardType,
           
