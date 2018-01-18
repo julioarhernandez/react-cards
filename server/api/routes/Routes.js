@@ -114,9 +114,7 @@ router.get('/venues/:venueSlug', function(req, res, next) {
 });
   
 
-
-
-/* UPDATE biz, beacon and venue */
+/* UPDATE biz, beacon, venue*/
 router.put('/:id', auth.securedToken, function(req, res, next) {
   jwt.verify(req.token, auth.getSecureKey(), function(err, data){
     if (err){
@@ -125,6 +123,34 @@ router.put('/:id', auth.securedToken, function(req, res, next) {
       Cards.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
         if (err) return next(err);
         res.json(post);
+      });
+  }
+  });
+});
+
+/* UPDATE card by id and business id*/
+router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next) {
+  jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+    if (err){
+      res.sendStatus(403);
+    }else{
+      Cards.update({
+        _id:ObjectId(req.params.id), 
+        "cards._id":ObjectId(req.params.cardId)}, 
+        {
+          $set:
+          {
+           "cards.$.cardImgSrc": req.body.cardImgSrc, 
+           "cards.$.cardBundle": req.body.cardBundle,
+           "cards.$.cardLink": req.body.cardLink,
+           "cards.$.cardTitle":  req.body.cardTitle,
+           "cards.$.cardPosition": req.body.cardPosition,
+           "cards.$.cardType":req.body.cardType,
+          
+          }}, 
+            function (err, post) {
+             if (err) return next(err);
+            res.json(post);
       });
   }
   });
