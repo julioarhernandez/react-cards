@@ -68,3 +68,16 @@ h2{
   color: #3fa9f5;
   margin-left: 5px;
 }
+.roundCard .bizTitle{
+  text-transform: uppercase;
+}
+.roundCard .bizTitle h2{
+  font-size: 120%;
+}
+#imgletterhead {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  float: left;
+  margin: 15px 10px;
+}

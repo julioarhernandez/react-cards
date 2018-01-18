@@ -8,6 +8,7 @@ var CardSchema = new mongoose.Schema({
   beInstalledDate: { type: Date, default: Date.now },
   bizId: Number,
   bizName: String,
+  bizLogo: String,
   bizLocation: {
     type: {type:String, default: "Point" }, 
     coordinates: [Number]
