@@ -13,7 +13,7 @@ class Header extends Component {
         { this.props.showBack && 
             <a href="javascript: history.back()"><span className="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a>
         }
-        <img src="../logo-linear.svg" />
+        <img src="../logo-white.svg" />
       </div>
 
     );

@@ -41,6 +41,7 @@ router.get('/getcard/:cardId', function(req, res, next) {
       bizId: 1,
       bizName: 1, 
       bizLogo: 1,
+      veName: 1,
       veSlug: 1,
       "cards._id": 1,
       "cards.cardTitle": 1,
@@ -110,7 +111,17 @@ router.get('/venues/:venueSlug', function(req, res, next) {
   Cards.find({veSlug : req.params.venueSlug}, function (err, post) {
     if (err) return next(err);
     res.json(post);
-  }).select({ "beName": 1,  "beLink": 1, "bizName": 1, "bizLogo": 1, "cards.cardTitle" : 1, "cards.cardPosition" : 1, "cards.cardImgSrc" : 1, "cards.cardLink" : 1,  "cards._id": 1});
+  }).select({ 
+      "beName": 1,  
+      "beLink": 1, 
+      "bizName": 1, 
+      "veName": 1, 
+      "bizLogo": 1, 
+      "cards.cardTitle" : 1, 
+      "cards.cardPosition" : 1, 
+      "cards.cardImgSrc" : 1, 
+      "cards.cardLink" : 1,  
+      "cards._id": 1});
 });
   
 

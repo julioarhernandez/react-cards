@@ -35,6 +35,11 @@ class ShowCard extends Component {
          <Header showBack />
         {this.state.cards.map( car => 
         <div className="roundCard card-only" key={car.cards._id}>
+            <div className="bizTitle">
+               <img id="imgletterhead" src={car.bizLogo} />
+               <h2>{car.bizName}</h2>
+               <span>{car.veName}</span>
+            </div>
             <img src={car.cards.cardImgSrc} />
             <h2>{car.cards.cardTitle}</h2>
             <hr />
