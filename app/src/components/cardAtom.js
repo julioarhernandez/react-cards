@@ -7,7 +7,7 @@ const CardAtom = (props) => {
               <div className="bizTitle">
                <img id="imgletterhead" src={props.bizLogo} />
                <h2>{props.bizName}</h2>
-               <span>{props.venueName}</span>
+               <span>{props.bizAddress}</span>
               </div>
               <a href={'/showcard/' + props.cardData._id}>
                <img src={props.cardData.cardImgSrc} />
