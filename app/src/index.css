@@ -6,6 +6,8 @@ body {
   font-family: sans-serif;
   background: linear-gradient(to bottom, rgba(0, 102, 204, 7) 128px, rgba(255, 255, 255, 1) 0%);
   background-repeat: no-repeat;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 /* Carousel slides */
