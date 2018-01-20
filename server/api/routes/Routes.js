@@ -120,6 +120,7 @@ router.get('/venues/:venueSlug', function(req, res, next) {
       "bizLogo": 1, 
       "bizAddress.street": 1,
       "cards.cardTitle" : 1, 
+      "cards.cardType" : 1, 
       "cards.cardPosition" : 1, 
       "cards.cardImgSrc" : 1, 
       "cards.cardLink" : 1,  

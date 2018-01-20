@@ -40,7 +40,11 @@ class ShowCards extends Component {
         <Slider {...settings}>
           {car.cards.map( tar => 
             <div> 
-              <CardAtom cardData={tar} bizName={car.bizName} bizLogo={car.bizLogo} venueName={car.veName} bizAddress={car.bizAddress.street}/> 
+              <CardAtom cardData={tar} 
+                bizName={car.bizName} 
+                bizLogo={car.bizLogo} 
+                venueName={car.veName} 
+                bizAddress={car.bizAddress.street}/> 
             </div>
           )}    
         </Slider>

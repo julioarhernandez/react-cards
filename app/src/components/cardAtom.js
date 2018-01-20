@@ -1,21 +1,20 @@
 import React from 'react';
+import CardBase from "./cardType/cardBase";
+import CardFullImage from "./cardType/cardFullImage";
+import CardVideo from "./cardType/cardVideo";
 
 const CardAtom = (props) => {
-    console.log(props);
-    return (
-        <div className="roundCard" key={props.cardData._id}>
-              <div className="bizTitle">
-               <img id="imgletterhead" src={props.bizLogo} />
-               <h2>{props.bizName}</h2>
-               <span>{props.bizAddress}</span>
-              </div>
-              <a href={'/showcard/' + props.cardData._id}>
-               <img src={props.cardData.cardImgSrc} />
-              </a>
-             
-              <h2>{props.cardData.cardTitle}</h2>
-        </div>
-    );
+    switch (props.cardData.cardType) {
+        case "1":
+            return <CardBase {...props}/>
+            break;
+        case "2":
+            return <CardFullImage {...props}/>
+            break;
+        case "3":
+            return <CardVideo {...props}/>
+            break;
+    }
 };
 export default CardAtom;
 
