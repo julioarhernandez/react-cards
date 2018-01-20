@@ -58,7 +58,7 @@ router.get('/getcard/:cardId', function(req, res, next) {
 router.post('/login', function(req, res) {
   //user admin only
   if ( auth.isUserAuthenticated(req) ){
-    const user = { name: "admin" };
+    const user = { name: process.env.USER };
     const token = jwt.sign({user}, auth.getSecureKey());
     res.json( {token : token } );
   }else{

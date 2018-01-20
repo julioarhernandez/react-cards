@@ -10,10 +10,10 @@ exports.securedToken = (req, res, next) => {
     }
 }
 exports.isUserAuthenticated = (req) => {
-    return ( req.body.user == 'admin');
+    return ( req.body.user == process.env.USER);
 }
 exports.getSecureKey = () => {
-    return "secret_key";
+    return process.env.SECRET;
 }
 
 
