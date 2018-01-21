@@ -28,6 +28,7 @@ class ShowCards extends Component {
       infinite: true,
       speed: 500,
       swipe: true,
+      lazyLoad: true, 
       slidesToShow: 1,
       slidesToScroll: 1,
       className: "innerSlide",
@@ -44,7 +45,7 @@ class ShowCards extends Component {
                 bizName={car.bizName} 
                 bizLogo={car.bizLogo} 
                 venueName={car.veName} 
-                bizAddress={car.bizAddress.street}/> 
+                bizAddress={car.bizAddress}/> 
             </div>
           )}    
         </Slider>

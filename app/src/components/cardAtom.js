@@ -2,6 +2,7 @@ import React from 'react';
 import CardBase from "./cardType/cardBase";
 import CardFullImage from "./cardType/cardFullImage";
 import CardVideo from "./cardType/cardVideo";
+import CardWholeImage from "./cardType/cardWholeImage";
 
 const CardAtom = (props) => {
     switch (props.cardData.cardType) {
@@ -13,6 +14,9 @@ const CardAtom = (props) => {
             break;
         case "3":
             return <CardVideo {...props}/>
+            break;
+        case "4":
+            return <CardWholeImage {...props}/>
             break;
     }
 };

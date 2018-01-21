@@ -76,7 +76,7 @@ class ShowCard extends Component {
             <div className="bizTitle">
                <img id="imgletterhead" src={car.bizLogo} />
                <h2>{car.bizName}</h2>
-               <span>{car.bizAddress.street}</span>
+               <span>{car.bizAddress.street}. {car.bizAddress.county}, {car.bizAddress.state} {car.bizAddress.zip}</span>
             </div>
             <img src={car.cards.cardImgSrc} />
             <div className="social-share">
