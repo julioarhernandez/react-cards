@@ -101,32 +101,35 @@ router.post('/addcard/:id',  auth.securedToken, function(req, res, next) {
     }
   });
 });
-    
+
 router.get('/venues/:venueSlug', function(req, res, next) {
   // TODO - remove this agregation and replace by a simple find
   // This was done to trunckate the cardContent, in next development
   // we'll use the whole cardContent data in the same card, and when
   // you click it it'll just expand as a modal window.
 
-  //Find the cards on venue
-  Cards.find({veSlug : req.params.venueSlug}, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  }).select({ 
-      "beName": 1,  
-      "beLink": 1, 
-      "bizName": 1, 
-      "veName": 1, 
-      "bizLogo": 1, 
-      "bizAddress": 1,
-      "cards.cardTitle" : 1, 
-      "cards.cardType" : 1, 
-      "cards.cardPosition" : 1, 
-      "cards.cardImgSrc" : 1, 
-      "cards.cardLink" : 1,  
-      "cards._id": 1});
-});
-  
+
+  Cards.aggregate([
+    {$match: { "veSlug": {$eq: req.params.venueSlug }}},
+    {$project: {
+        beName: 1,  
+        beLink: 1, 
+        bizName: 1, 
+        veName: 1, 
+        bizLogo: 1, 
+        bizAddress: 1,
+        cards: {$filter: {
+            input: "$cards",
+            as: "cards",
+            cond: {$ne: ["$$cards.cardPosition", 0 ]}
+        }}
+    }}
+], function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+  });
+
 
 /* UPDATE biz, beacon, venue*/
 router.put('/:id', auth.securedToken, function(req, res, next) {
