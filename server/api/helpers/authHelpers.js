@@ -1,3 +1,4 @@
+
 exports.securedToken = (req, res, next) => {
     const bearerHeader = req.headers["authorization"];
     if (typeof bearerHeader !== 'undefined'){
@@ -10,7 +11,7 @@ exports.securedToken = (req, res, next) => {
     }
 }
 exports.isUserAuthenticated = (req) => {
-    return ( req.body.user == process.env.USER);
+    return ( req.body.user == process.env.USERNAME);
 }
 exports.getSecureKey = () => {
     return process.env.SECRET;
