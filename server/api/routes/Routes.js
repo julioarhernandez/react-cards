@@ -109,25 +109,45 @@ router.get('/venues/:venueSlug', function(req, res, next) {
   // you click it it'll just expand as a modal window.
 
 
-  Cards.aggregate([
-    {$match: { "veSlug": {$eq: req.params.venueSlug }}},
-    {$project: {
-        beName: 1,  
-        beLink: 1, 
-        bizName: 1, 
-        veName: 1, 
-        bizLogo: 1, 
-        bizAddress: 1,
-        cards: {$filter: {
-            input: "$cards",
-            as: "cards",
-            cond: {$ne: ["$$cards.cardPosition", 0 ]}
-        }}
-    }}
-], function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
+//   Cards.aggregate([
+//     {$match: { "veSlug": {$eq: req.params.venueSlug }}},
+//     {$project: {
+//         beName: 1,  
+//         beLink: 1, 
+//         bizName: 1, 
+//         veName: 1, 
+//         bizLogo: 1, 
+//         bizAddress: 1,
+//         cards: {$filter: {
+//             input: "$cards",
+//             as: "cards",
+//             cond: {$ne: ["$$cards.cardPosition", 0 ]}
+//         }}
+//     }}
+// ], function (err, post) {
+//       if (err) return next(err);
+//       res.json(post);
+//     });
+
+Cards.aggregate([
+  {$match: { "veSlug": {$eq: req.params.venueSlug }}},
+  { $unwind: "$cards" },
+  { $sort: { "cards.cardPosition": 1 } },
+  { $group: { 
+              _id: "$_id",  
+              beName: { $first: "$beName" }, 
+              beLink: { $first: "$beLink" }, 
+              bizName: { $first: "$bizName" }, 
+              bizLogo: { $first: "$bizLogo" }, 
+              veName: { $first: "$veName" }, 
+              bizAddress: { $first: "$bizAddress" }, 
+              bizName: { $first: "$bizName" }, 
+              cards: { $push: "$cards" } 
+            }
+  }], function (err, post) {
+          if (err) return next(err);
+          res.json(post);
+        });
   });
 
 
