@@ -10,7 +10,9 @@ const CardWholeImage = (props) => {
               </div>
               <a href={props.cardData.cardLink} target="_blank">
                <div className="shadow">
-                <img src={props.cardData.cardImgSrc} />
+               <div className="imgWrap">
+                    <img src={props.cardData.cardImgSrc} />
+                </div>
                </div>
                <h2>{props.cardData.cardTitle}</h2>
               </a>

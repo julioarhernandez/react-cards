@@ -11,7 +11,9 @@ const CardVideo = (props) => {
               <a href={props.cardData.cardLink} target="_blank">
                <span className="glyphicon glyphicon-play" aria-hidden="true"></span>
                <div className="shadow">
-                <img src={props.cardData.cardImgSrc} />
+               <div className="imgWrap">
+                 <img src={props.cardData.cardImgSrc} />
+               </div>
                </div>
                <h2>{props.cardData.cardTitle}</h2>
               </a>

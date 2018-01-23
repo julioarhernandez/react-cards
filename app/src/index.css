@@ -25,7 +25,6 @@ body {
 .slick-slide {
   border-radius: 6px;
   background-color: white;
-  min-height: 303px;
   /* max-height: 364px; */
 }
 
@@ -58,7 +57,7 @@ body {
   margin: 20px;
 }
 
-h2 {
+h2, h3, h4, h5 {
   font-family: sans-serif;
   font-size: 120%;
   font-weight: 700;
@@ -67,9 +66,19 @@ h2 {
   margin: 0;
   color: rgba(0, 0, 0, 0.76);
 }
+h3{
+  font-size: 120%;
+}
+h4, h5{
+  font-size: 80%;
+}
 
 .card-only img {
   max-width: 100%;
+}
+
+.roundCard ul{
+  padding: 15px;
 }
 
 .card-only {
@@ -109,13 +118,28 @@ h2 {
   margin-left: 5px;
 }
 
+.roundCard a, 
+.roundCard a:hover, 
+.roundCard a:focus{
+  text-decoration: none;
+} 
+.roundCard .imgWrap{
+  min-height: 345px;
+  background: url('./loop.gif') no-repeat center center;
+  background-color: rgba(0, 102, 204, 0.05);
+}
+
 .roundCard .bizTitle {
   text-transform: uppercase;
+  margin-bottom: 12px;
 }
+
+/* Spinner css */
+
 
 .roundCard .bizTitle h2 {
   font-size: 100%;
-  padding: 19px 0 0;
+  padding: 20px 0 0;
   line-height: 14px;
 }
 
@@ -167,7 +191,6 @@ h2 {
 }
 
 .fullImage a img{
-  height: 297px;
   border-radius: 0 0 6px 6px;
 }
 
@@ -215,7 +238,7 @@ h2 {
 }
 
 .wholeImage a img{
-  height: 363px;
+  height: 495px;
   border-radius: 6px;
 }
 .wholeImage #imgletterhead{

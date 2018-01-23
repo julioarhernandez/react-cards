@@ -108,27 +108,6 @@ router.get('/venues/:venueSlug', function(req, res, next) {
   // we'll use the whole cardContent data in the same card, and when
   // you click it it'll just expand as a modal window.
 
-
-//   Cards.aggregate([
-//     {$match: { "veSlug": {$eq: req.params.venueSlug }}},
-//     {$project: {
-//         beName: 1,  
-//         beLink: 1, 
-//         bizName: 1, 
-//         veName: 1, 
-//         bizLogo: 1, 
-//         bizAddress: 1,
-//         cards: {$filter: {
-//             input: "$cards",
-//             as: "cards",
-//             cond: {$ne: ["$$cards.cardPosition", 0 ]}
-//         }}
-//     }}
-// ], function (err, post) {
-//       if (err) return next(err);
-//       res.json(post);
-//     });
-
 Cards.aggregate([
   {$match: { "veSlug": {$eq: req.params.venueSlug }}},
   { $unwind: "$cards" },
@@ -193,14 +172,6 @@ router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next
   }
   });
 });
-
-/* DELETE Cards */
-// router.delete('/:id', function(req, res, next) {
-//   Cards.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-//     if (err) return next(err);
-//     res.json(post);
-//   });
-// });
 
 router.get('*', function(req, res){
     res.json('Are you lost?');
