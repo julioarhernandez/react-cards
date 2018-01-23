@@ -57,7 +57,7 @@ body {
   margin: 20px;
 }
 
-h2, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
   font-family: sans-serif;
   font-size: 120%;
   font-weight: 700;
@@ -125,8 +125,13 @@ h4, h5{
 } 
 .roundCard .imgWrap{
   min-height: 245px;
-  background: url('./loop.gif') no-repeat center center;
-  background-color: rgba(0, 102, 204, 0.05);
+  
+  background: url('./loop.gif'),-moz-linear-gradient(top, rgba(0,102,204,0.05) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+  background: url('./loop.gif'),-webkit-linear-gradient(top, rgba(0,102,204,0.05) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: url('./loop.gif'),linear-gradient(to bottom, rgba(0,102,204,0.05) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d0066cc', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .roundCard .bizTitle {
@@ -156,6 +161,7 @@ h4, h5{
   border-radius: 50%;
   float: left;
   margin: 18px 10px;
+  border: 1px solid rgba(0, 102, 204, 0.42);
 }
 
 .social-share {
