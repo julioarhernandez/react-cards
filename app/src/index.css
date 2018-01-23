@@ -124,7 +124,7 @@ h4, h5{
   text-decoration: none;
 } 
 .roundCard .imgWrap{
-  min-height: 345px;
+  min-height: 245px;
   background: url('./loop.gif') no-repeat center center;
   background-color: rgba(0, 102, 204, 0.05);
 }
