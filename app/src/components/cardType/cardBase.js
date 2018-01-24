@@ -7,6 +7,7 @@ const CardBase = (props) => {
                <img id="imgletterhead" src={props.bizLogo} />
                <h2>{props.bizName}</h2>
                <span>{props.bizAddress.street}. {props.bizAddress.county}, {props.bizAddress.state} {props.bizAddress.zip}</span>
+               <div className="contextMenu"></div>
               </div>
               <a href={'/showcard/' + props.cardData._id}>
               <div className="imgWrap">

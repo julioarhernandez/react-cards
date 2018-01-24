@@ -77,6 +77,7 @@ class ShowCard extends Component {
                <img id="imgletterhead" src={car.bizLogo} />
                <h2>{car.bizName}</h2>
                <span>{car.bizAddress.street}. {car.bizAddress.county}, {car.bizAddress.state} {car.bizAddress.zip}</span>
+              <div className="contextMenu"></div>
             </div>
             <img src={car.cards.cardImgSrc} />
             <div className="social-share">
