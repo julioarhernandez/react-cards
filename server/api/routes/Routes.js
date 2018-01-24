@@ -39,6 +39,8 @@ router.get('/getcard/:cardId', function(req, res, next) {
       beName: 1,
       beLink: 1,
       bizId: 1,
+      bizPhone: 1,
+      bizWeb: 1,
       bizName: 1, 
       "bizAddress": 1,
       bizLogo: 1,
@@ -105,6 +107,8 @@ router.post('/', auth.securedToken, function(req, res, next) {
         beBrand: "Estimote",
         bizName: "BizName",
         bizId: bizRandom,
+        bizWeb: "",
+        bizPhone: "",
         bizLogo: "http://img-src",
         bizAddress: {
           country: "US",
@@ -209,9 +213,12 @@ Cards.aggregate([
               beName: { $first: "$beName" }, 
               beLink: { $first: "$beLink" }, 
               bizName: { $first: "$bizName" }, 
+              bizPhone: { $first: "$bizPhone" }, 
+              bizWeb: { $first: "$bizWeb" }, 
               bizLogo: { $first: "$bizLogo" }, 
               veName: { $first: "$veName" }, 
               bizAddress: { $first: "$bizAddress" }, 
+              bizLocation: { $first: "$bizLocation" }, 
               bizName: { $first: "$bizName" }, 
               cards: { $push: "$cards" } 
             }

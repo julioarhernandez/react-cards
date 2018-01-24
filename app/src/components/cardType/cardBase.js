@@ -1,4 +1,5 @@
 import React from 'react';
+import DropDownMenu from '../dropDownMenu';
 
 const CardBase = (props) => {
     return (
@@ -7,7 +8,7 @@ const CardBase = (props) => {
                <img id="imgletterhead" src={props.bizLogo} />
                <h2>{props.bizName}</h2>
                <span>{props.bizAddress.street}. {props.bizAddress.county}, {props.bizAddress.state} {props.bizAddress.zip}</span>
-               <div className="contextMenu"></div>
+               <DropDownMenu web={props.bizWeb} number={props.bizPhone} location={props.bizLocation} />
               </div>
               <a href={'/showcard/' + props.cardData._id}>
               <div className="imgWrap">

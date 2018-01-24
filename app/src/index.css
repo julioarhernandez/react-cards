@@ -77,6 +77,41 @@ h4, h5{
   max-width: 100%;
 }
 
+.dropdown {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 4px;
+}
+
+.dropdown__content {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 13px;
+  background: white;
+  box-shadow: 2px 1px 18px #888888;
+  border-radius: 7px;
+  width: 132px;
+}
+.dropdown__content ul{
+  list-style: none;
+  padding: 15px 15px 0 !important;
+}
+.dropdown__content li{
+  font-size: 85%;
+  margin-bottom: 15px;
+  color: #464646;
+}
+.dropdown__content span{
+  display: inline !important;
+  margin-right: 10px;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+}
+
 .contextMenu{
   position: absolute;
   top: 8px;
@@ -85,6 +120,7 @@ h4, h5{
 .contextMenu:after{
     content: '\2807';
     font-size: 35px;
+    color: black;
 }
 
 .roundCard ul{

@@ -9,6 +9,8 @@ var CardSchema = new mongoose.Schema({
   bizId: Number,
   bizName: String,
   bizLogo: String,
+  bizWeb: String,
+  bizPhone: String,
   bizLocation: {
     type: {type:String, default: "Point" }, 
     coordinates: [Number]

@@ -45,7 +45,11 @@ class ShowCards extends Component {
                 bizName={car.bizName} 
                 bizLogo={car.bizLogo} 
                 venueName={car.veName} 
-                bizAddress={car.bizAddress}/> 
+                bizAddress={car.bizAddress}
+                bizPhone={car.bizPhone}
+                bizWeb={car.bizWeb}
+                bizLocation={car.bizLocation}
+                /> 
             </div>
           )}    
         </Slider>
