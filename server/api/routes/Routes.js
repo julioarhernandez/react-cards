@@ -68,21 +68,113 @@ router.post('/login', function(req, res) {
 
 
 /* create beacon, biz, venue */
+// router.post('/', auth.securedToken, function(req, res, next) {
+  
+//   jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+//     if (err){
+//       res.sendStatus(403);
+//     }else{
+//       // Make a copy of request post
+//       var body = req.body;
+//       // Create random biz id
+//       var randomId = new random(random.engines.mt19937().autoSeed());
+//       body.bizId = randomId.integer(100000, 999999);
+//       // Insert into db
+//       Cards.create(body, function (err, post) {
+//         if (err) return next(err);
+//         res.json(post);
+//       });
+//     }
+//   });
+// });
+
+/* create beacon, biz, venue with cards */
 router.post('/', auth.securedToken, function(req, res, next) {
   
   jwt.verify(req.token, auth.getSecureKey(), function(err, data){
     if (err){
       res.sendStatus(403);
     }else{
-      // Make a copy of request post
-      var body = req.body;
       // Create random biz id
       var randomId = new random(random.engines.mt19937().autoSeed());
-      body.bizId = randomId.integer(100000, 999999);
+      var bizRandom = randomId.integer(100000, 999999);
+      var objectToInsert = {
+        beName: "BlueBeaconIdentify",
+        beLink: "LinkShoppingPHY(7DsxH)",
+        beBattery: "100%",
+        beBrand: "Estimote",
+        bizName: "BizName",
+        bizId: bizRandom,
+        bizLogo: "http://img-src",
+        bizAddress: {
+          country: "US",
+          state: "FL",
+          street: "",
+          zip: "",
+          county: "Miami"
+        },
+        bizLocation: {
+          type: "Point", 
+          coordinates: [25.747206, -80.387772]
+        },
+        veName: "Venue-Name(Mall-name)",
+        veSlug: "ve1",
+        veLocation: {
+          type: "Point", 
+          coordinates: [25.747206, -80.387772]
+        },
+        cards: [
+          {
+            cardTitle: "",
+            cardContent: "",
+            cardImgSrc: "",
+            cardPosition: 1,
+            cardLink: "",
+            cardBundle: "1",
+            cardType: "1"
+          },
+          {
+            cardTitle: "",
+            cardContent: "",
+            cardImgSrc: "",
+            cardPosition: 2,
+            cardLink: "",
+            cardBundle: "1",
+            cardType: "1"
+          },
+          {
+            cardTitle: "",
+            cardContent: "",
+            cardImgSrc: "",
+            cardPosition: 3,
+            cardLink: "",
+            cardBundle: "1",
+            cardType: "1"
+          },
+          {
+            cardTitle: "",
+            cardContent: "",
+            cardImgSrc: "",
+            cardPosition: 4,
+            cardLink: "",
+            cardBundle: "1",
+            cardType: "1"
+          },
+          {
+            cardTitle: "",
+            cardContent: "",
+            cardImgSrc: "",
+            cardPosition: 5,
+            cardLink: "",
+            cardBundle: "1",
+            cardType: "1"
+          }
+        ]
+      };
       // Insert into db
-      Cards.create(body, function (err, post) {
+      Cards.create(objectToInsert, function (err, post) {
         if (err) return next(err);
-        res.json(post);
+        res.sendStatus(200);
       });
     }
   });
