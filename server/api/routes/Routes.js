@@ -41,6 +41,7 @@ router.get('/getcard/:cardId', function(req, res, next) {
       bizId: 1,
       bizPhone: 1,
       bizWeb: 1,
+      bizLocation: 1,
       bizName: 1, 
       "bizAddress": 1,
       bizLogo: 1,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import Header from './header';
 import baseUrl from '../helpers/urlHelpers';
+import DropDownMenu from './dropDownMenu';
 
 //Share button dependencies
 import {
@@ -77,7 +78,7 @@ class ShowCard extends Component {
                <img id="imgletterhead" src={car.bizLogo} />
                <h2>{car.bizName}</h2>
                <span>{car.bizAddress.street}. {car.bizAddress.county}, {car.bizAddress.state} {car.bizAddress.zip}</span>
-              <div className="contextMenu"></div>
+               <DropDownMenu web={car.bizWeb} number={car.bizPhone} location={car.bizLocation} />
             </div>
             <img src={car.cards.cardImgSrc} />
             <div className="social-share">
