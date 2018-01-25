@@ -111,6 +111,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
         bizWeb: "",
         bizPhone: "",
         bizLogo: "http://img-src",
+        bizPosition: 1,
         bizAddress: {
           country: "US",
           state: "FL",
@@ -218,13 +219,16 @@ Cards.aggregate([
               bizPhone: { $first: "$bizPhone" }, 
               bizWeb: { $first: "$bizWeb" }, 
               bizLogo: { $first: "$bizLogo" }, 
+              bizPosition: { $first: "$bizPosition" }, 
               veName: { $first: "$veName" }, 
               bizAddress: { $first: "$bizAddress" }, 
               bizLocation: { $first: "$bizLocation" }, 
               bizName: { $first: "$bizName" }, 
               cards: { $push: "$cards" } 
             }
-  }], function (err, post) {
+  },
+  { $sort: { "bizPosition": 1 } }
+], function (err, post) {
           if (err) return next(err);
           res.json(post);
         });

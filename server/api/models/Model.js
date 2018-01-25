@@ -11,6 +11,7 @@ var CardSchema = new mongoose.Schema({
   bizLogo: String,
   bizWeb: String,
   bizPhone: String,
+  bizPosition: Number,
   bizLocation: {
     type: {type:String, default: "Point" }, 
     coordinates: [Number]

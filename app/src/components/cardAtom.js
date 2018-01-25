@@ -18,8 +18,12 @@ const CardAtom = (props) => {
         case "4":
             return <CardWholeImage {...props}/>
             break;
+        default:
+            return <CardBase {...props}/>
+            break;
     }
 };
+
 export default CardAtom;
 
 
