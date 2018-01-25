@@ -206,9 +206,10 @@ router.get('/venues/:venueSlug', function(req, res, next) {
   // you click it it'll just expand as a modal window.
 
 Cards.aggregate([
-  {$match: { "veSlug": {$eq: req.params.venueSlug }}},
+  { $match: { "veSlug": {$eq: req.params.venueSlug }}},
   { $unwind: "$cards" },
   { $sort: { "cards.cardPosition": 1 } },
+  { $match: { "cards.cardPosition": {$ne: 0 }}},
   { $group: { 
               _id: "$_id",  
               beName: { $first: "$beName" }, 
