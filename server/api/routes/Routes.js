@@ -234,6 +234,40 @@ Cards.aggregate([
         });
   });
 
+  router.get('/bizs/:bizId', function(req, res, next) {
+    // TODO - remove this agregation and replace by a simple find
+    // This was done to trunckate the cardContent, in next development
+    // we'll use the whole cardContent data in the same card, and when
+    // you click it it'll just expand as a modal window.
+  
+  Cards.aggregate([
+    { $match: { "_id": {$eq: ObjectId(req.params.bizId) }}},
+    { $unwind: "$cards" },
+    { $sort: { "cards.cardPosition": 1 } },
+    { $match: { "cards.cardPosition": {$ne: 0 }}},
+    { $group: { 
+                _id: "$_id",  
+                beName: { $first: "$beName" }, 
+                beLink: { $first: "$beLink" }, 
+                bizName: { $first: "$bizName" }, 
+                bizPhone: { $first: "$bizPhone" }, 
+                bizWeb: { $first: "$bizWeb" }, 
+                bizLogo: { $first: "$bizLogo" }, 
+                bizPosition: { $first: "$bizPosition" }, 
+                veName: { $first: "$veName" }, 
+                bizAddress: { $first: "$bizAddress" }, 
+                bizLocation: { $first: "$bizLocation" }, 
+                bizName: { $first: "$bizName" }, 
+                cards: { $push: "$cards" } 
+              }
+    },
+    { $sort: { "bizPosition": 1 } }
+  ], function (err, post) {
+            if (err) return next(err);
+            res.json(post);
+          });
+    });
+
 
 /* UPDATE biz, beacon, venue*/
 router.put('/:id', auth.securedToken, function(req, res, next) {
