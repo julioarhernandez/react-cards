@@ -51,7 +51,8 @@ router.get('/getcard/:cardId', function(req, res, next) {
       "cards.cardTitle": 1,
       "cards.cardImgSrc": 1,
       "cards.cardContent": 1,
-      "cards.cardExpiration": 1
+      "cards.cardExpiration": 1,
+      "cards.cardCoupon": 1
   }}], function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -136,6 +137,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardContent: "",
             cardImgSrc: "",
             cardExpiration: "",
+            cardCoupon: "",
             cardPosition: 1,
             cardLink: "",
             cardBundle: "1",
@@ -146,6 +148,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardContent: "",
             cardImgSrc: "",
             cardExpiration: "",
+            cardCoupon: "",
             cardPosition: 2,
             cardLink: "",
             cardBundle: "1",
@@ -156,6 +159,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardContent: "",
             cardImgSrc: "",
             cardExpiration: "",
+            cardCoupon: "",
             cardPosition: 3,
             cardLink: "",
             cardBundle: "1",
@@ -166,6 +170,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardContent: "",
             cardImgSrc: "",
             cardExpiration: "",
+            cardCoupon: "",
             cardPosition: 4,
             cardLink: "",
             cardBundle: "1",
@@ -176,6 +181,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardContent: "",
             cardImgSrc: "",
             cardExpiration: "",
+            cardCoupon: "",
             cardPosition: 5,
             cardLink: "",
             cardBundle: "1",

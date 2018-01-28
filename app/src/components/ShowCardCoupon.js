@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import Header from './header';
 import baseUrl from '../helpers/urlHelpers';
 import DropDownMenu from './dropDownMenu';
+import Barcode from 'react-barcode';
 
 //Share button dependencies
 import {
@@ -122,7 +123,7 @@ class ShowCard extends Component {
             <h2>{car.cards.cardTitle}</h2>
             <hr />
             <p dangerouslySetInnerHTML={{ __html: car.cards.cardContent }}></p>
-            <div id="couponSpace">{car.cards.cardExpiration}</div>
+            <div id="couponSpace"><Barcode value={car.cards.cardCoupon ? car.cards.cardCoupon : "dealBy" } /></div>
         </div> 
         
         )} 
