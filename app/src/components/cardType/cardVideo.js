@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../topDownVideo.css';
 
 const CardVideo = (props) => {
     return (

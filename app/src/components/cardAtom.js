@@ -10,10 +10,10 @@ const CardAtom = (props) => {
             return <CardBase {...props}/>
             break;
         case "2":
-            return <CardFullImage {...props}/>
+            return <CardVideo {...props}/>
             break;
         case "3":
-            return <CardVideo {...props}/>
+            return <CardFullImage {...props}/>
             break;
         case "4":
             return <CardWholeImage {...props}/>
