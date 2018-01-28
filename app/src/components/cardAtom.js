@@ -1,5 +1,6 @@
 import React from 'react';
 import CardBase from "./cardType/cardBase";
+import CardBaseCoupon from "./cardType/cardBaseCoupon";
 import CardFullImage from "./cardType/cardFullImage";
 import CardVideo from "./cardType/cardVideo";
 import CardWholeImage from "./cardType/cardWholeImage";
@@ -13,9 +14,12 @@ const CardAtom = (props) => {
             return <CardVideo {...props}/>
             break;
         case "3":
-            return <CardFullImage {...props}/>
+            return <CardBaseCoupon {...props}/>
             break;
         case "4":
+            return <CardFullImage {...props}/>
+            break;
+        case "5":
             return <CardWholeImage {...props}/>
             break;
         default:

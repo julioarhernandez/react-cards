@@ -50,7 +50,8 @@ router.get('/getcard/:cardId', function(req, res, next) {
       "cards._id": 1,
       "cards.cardTitle": 1,
       "cards.cardImgSrc": 1,
-      "cards.cardContent": 1
+      "cards.cardContent": 1,
+      "cards.cardExpiration": 1
   }}], function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -134,6 +135,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardTitle: "",
             cardContent: "",
             cardImgSrc: "",
+            cardExpiration: "",
             cardPosition: 1,
             cardLink: "",
             cardBundle: "1",
@@ -143,6 +145,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardTitle: "",
             cardContent: "",
             cardImgSrc: "",
+            cardExpiration: "",
             cardPosition: 2,
             cardLink: "",
             cardBundle: "1",
@@ -152,6 +155,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardTitle: "",
             cardContent: "",
             cardImgSrc: "",
+            cardExpiration: "",
             cardPosition: 3,
             cardLink: "",
             cardBundle: "1",
@@ -161,6 +165,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardTitle: "",
             cardContent: "",
             cardImgSrc: "",
+            cardExpiration: "",
             cardPosition: 4,
             cardLink: "",
             cardBundle: "1",
@@ -170,6 +175,7 @@ router.post('/', auth.securedToken, function(req, res, next) {
             cardTitle: "",
             cardContent: "",
             cardImgSrc: "",
+            cardExpiration: "",
             cardPosition: 5,
             cardLink: "",
             cardBundle: "1",
@@ -210,7 +216,12 @@ Cards.aggregate([
   { $match: { "veSlug": {$eq: req.params.venueSlug }}},
   { $unwind: "$cards" },
   { $sort: { "cards.cardPosition": 1 } },
-  { $match: { "cards.cardPosition": {$ne: 0 }}},
+  { $match: { "cards.cardPosition": {$ne: 0 }, 
+            $or: [
+                    {"cards.cardExpiration": { $gte: new Date() }}, 
+                    {"cards.cardExpiration": null }
+                  ] 
+            }},
   { $group: { 
               _id: "$_id",  
               beName: { $first: "$beName" }, 
@@ -244,7 +255,12 @@ Cards.aggregate([
     { $match: { "_id": {$eq: ObjectId(req.params.bizId) }}},
     { $unwind: "$cards" },
     { $sort: { "cards.cardPosition": 1 } },
-    { $match: { "cards.cardPosition": {$ne: 0 }}},
+    { $match: { "cards.cardPosition": {$ne: 0 }, 
+            $or: [
+                    {"cards.cardExpiration": { $gte: new Date() }}, 
+                    {"cards.cardExpiration": null }
+                  ] 
+            }},
     { $group: { 
                 _id: "$_id",  
                 beName: { $first: "$beName" }, 
@@ -299,6 +315,7 @@ router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next
            "cards.$.cardBundle": req.body.cardBundle,
            "cards.$.cardLink": req.body.cardLink,
            "cards.$.cardTitle":  req.body.cardTitle,
+           "cards.$.cardExpiration":  req.body.cardExpiration,
            "cards.$.cardContent":  req.body.cardContent,
            "cards.$.cardPosition": req.body.cardPosition,
            "cards.$.cardType":req.body.cardType,

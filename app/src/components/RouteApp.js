@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShowCards from './ShowCards';
 import ShowCardsBiz from './ShowCardsBiz';
 import ShowCard from './ShowCard';
+import ShowCardCoupon from './ShowCardCoupon';
 import App from './App';
 
 const RouteApp = () => (
@@ -14,6 +15,7 @@ const RouteApp = () => (
         <Route exact path='/' component={App} />
         <Route path='/showvenue/:id' component={ShowCards} />
         <Route path='/showcard/:id' component={ShowCard} />
+        <Route path='/showcardcoupon/:id' component={ShowCardCoupon} />
         <Route path='/showbiz/:id' component={ShowCardsBiz} />
       </div>
   </Router>
