@@ -36,6 +36,7 @@ var CardSchema = new mongoose.Schema({
     cardPosition: Number,
     cardTitle: String,
     cardExpiration: Date,
+    cardCoupon: String,
     cardSubTitle: String,
     cardImgSrc: String,
     cardLink: String,
