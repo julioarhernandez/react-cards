@@ -1,5 +1,5 @@
 import React from 'react';
 
-const getBaseUrl = "http://localhost:3001";
+const getBaseUrl = process.env.BASE_API;
 
 export default getBaseUrl;

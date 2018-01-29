@@ -34,7 +34,18 @@ router.get('/getcard/:cardId', function(req, res, next) {
   cardId = new ObjectId(req.params.cardId);
   Cards.aggregate([
     {$unwind: "$cards" },
-    {$match: { "cards._id": cardId}},
+    {$match: {
+              $and: 
+                [
+                  { "cards._id": cardId},
+                  { $or: [
+                          {"cards.cardExpiration": { $gte: new Date() }}, 
+                          {"cards.cardExpiration": null }
+                        ]
+                  }
+                ]
+              }
+    },
     {$project: {
       beName: 1,
       beLink: 1,
@@ -322,6 +333,7 @@ router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next
            "cards.$.cardLink": req.body.cardLink,
            "cards.$.cardTitle":  req.body.cardTitle,
            "cards.$.cardExpiration":  req.body.cardExpiration,
+           "cards.$.cardCoupon":  req.body.cardCoupon,
            "cards.$.cardContent":  req.body.cardContent,
            "cards.$.cardPosition": req.body.cardPosition,
            "cards.$.cardType":req.body.cardType,
