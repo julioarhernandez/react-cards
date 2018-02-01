@@ -58,7 +58,7 @@ class ShowCard extends Component {
       .then(res => {
         this.setState({ 
           cards: res.data,
-          shareUrl: `https://dealby.us/showcard/${res.data[0]["cards"]["_id"]}`,
+          shareUrl: `https://dealby.us/showcardcoupon/${res.data[0]["cards"]["_id"]}`,
           title : `DealBy - ${res.data[0]["bizName"]} - ${res.data[0]["cards"]["cardTitle"]}`
          });
          document.title = `${this.state.title}`;
