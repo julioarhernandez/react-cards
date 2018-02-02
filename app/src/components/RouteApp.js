@@ -12,7 +12,7 @@ import App from './App';
 const RouteApp = () => (
     <Router>
       <div>
-        <Route exact path='/' component={App} />
+        <Route exact path='/' component={() => window.location = 'https://bizmarketing.us/en/dealby-mejores-ofertas/'} />
         <Route path='/showvenue/:id' component={ShowCards} />
         <Route path='/showcard/:id' component={ShowCard} />
         <Route path='/showcardcoupon/:id' component={ShowCardCoupon} />
