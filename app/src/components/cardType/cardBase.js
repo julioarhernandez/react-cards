@@ -12,9 +12,9 @@ const CardBase = (props) => {
               </div>
               <a href={'/showcard/' + props.cardData._id}>
               <div className="imgWrap">
-               <img src={props.cardData.cardImgSrc} />
+               <img src={props.cardData.cardImgSrc} className="Card-detail-link" />
                </div>
-              <h2>{props.cardData.cardTitle}</h2></a>
+              <h2 className="Card-detail-link" >{props.cardData.cardTitle}</h2></a>
         </div>
     );
 };

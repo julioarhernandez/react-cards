@@ -10,11 +10,11 @@ const CardBaseCoupon = (props) => {
                <span>{props.bizAddress.street}. {props.bizAddress.county}, {props.bizAddress.state} {props.bizAddress.zip}</span>
                <DropDownMenu web={props.bizWeb} number={props.bizPhone} location={props.bizLocation} />
               </div>
-              <a href={'/showcardcoupon/' + props.cardData._id}>
+              <a className="Card-detail-link" href={'/showcardcoupon/' + props.cardData._id}>
               <div className="imgWrap">
-               <img src={props.cardData.cardImgSrc} />
+               <img src={props.cardData.cardImgSrc} className="Card-detail-link" />
                </div>
-              <h2>{props.cardData.cardTitle}</h2></a>
+              <h2 className="Card-detail-link" >{props.cardData.cardTitle}</h2></a>
         </div>
     );
 };

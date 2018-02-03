@@ -13,10 +13,10 @@ const CardVideo = (props) => {
                <span className="glyphicon glyphicon-play" aria-hidden="true"></span>
                <div className="shadow">
                <div className="imgWrap">
-                 <img src={props.cardData.cardImgSrc} />
+                 <img src={props.cardData.cardImgSrc} className="Card-detail-link" />
                </div>
                </div>
-               <h2>{props.cardData.cardTitle}</h2>
+               <h2 className="Card-detail-link" >{props.cardData.cardTitle}</h2>
               </a>
         </div>
     );
