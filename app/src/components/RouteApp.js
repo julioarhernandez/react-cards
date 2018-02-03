@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Components
@@ -7,7 +6,7 @@ import ShowCards from './ShowCards';
 import ShowCardsBiz from './ShowCardsBiz';
 import ShowCard from './ShowCard';
 import ShowCardCoupon from './ShowCardCoupon';
-import App from './App';
+
 
 const RouteApp = () => (
     <Router>

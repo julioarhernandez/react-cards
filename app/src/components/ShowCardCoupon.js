@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Slider from 'react-slick';
 import Header from './header';
+import Footer from './footer';
 import baseUrl from '../helpers/urlHelpers';
 import DropDownMenu from './dropDownMenu';
 import Barcode from 'react-barcode';
@@ -9,40 +9,22 @@ import Barcode from 'react-barcode';
 //Share button dependencies
 import {
   ShareButtons,
-  ShareCounts,
   generateShareIcon
 } from 'react-share';
 
 const {
   FacebookShareButton,
   GooglePlusShareButton,
-  LinkedinShareButton,
   TwitterShareButton,
-  TelegramShareButton,
   WhatsappShareButton,
-  PinterestShareButton,
-  VKShareButton,
-  OKShareButton,
-  RedditShareButton,
-  TumblrShareButton,
-  LivejournalShareButton,
   EmailShareButton,
 } = ShareButtons;
 
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 const GooglePlusIcon = generateShareIcon('google');
-const LinkedinIcon = generateShareIcon('linkedin');
-const PinterestIcon = generateShareIcon('pinterest');
-const VKIcon = generateShareIcon('vk');
-const OKIcon = generateShareIcon('ok');
-const TelegramIcon = generateShareIcon('telegram');
 const WhatsappIcon = generateShareIcon('whatsapp');
-const RedditIcon = generateShareIcon('reddit');
-const TumblrIcon = generateShareIcon('tumblr');
-const MailruIcon = generateShareIcon('mailru');
 const EmailIcon = generateShareIcon('email');
-const LivejournalIcon = generateShareIcon('livejournal');
 
 class ShowCard extends Component {
 
@@ -62,7 +44,7 @@ class ShowCard extends Component {
           title : `DealBy - ${res.data[0]["bizName"]} - ${res.data[0]["cards"]["cardTitle"]}`
          });
          document.title = `${this.state.title}`;
-        // console.log(this.state.cards);
+        //  console.log(this.state.cards);
       });
     // Set page title
     
@@ -72,16 +54,16 @@ class ShowCard extends Component {
 
     return (
       <div>
-         <Header showBack />
+        <Header showBack={this.state.cards} />
         {this.state.cards.map( car => 
         <div className="roundCard card-only" key={car.cards._id}>
             <div className="bizTitle">
-               <img id="imgletterhead" src={car.bizLogo} />
+               <img id="imgletterhead" src={car.bizLogo} alt={car.bizName} />
                <h2>{car.bizName}</h2>
                <span>{car.bizAddress.street}. {car.bizAddress.county}, {car.bizAddress.state} {car.bizAddress.zip}</span>
                <DropDownMenu web={car.bizWeb} number={car.bizPhone} location={car.bizLocation} />
             </div>
-            <img src={car.cards.cardImgSrc} />
+            <img src={car.cards.cardImgSrc} alt={car.cards.cardTitle} />
             <div className="social-share">
               <span>Share it</span>
               <FacebookShareButton
@@ -127,7 +109,8 @@ class ShowCard extends Component {
         </div> 
         
         )} 
-        </div>
+        <Footer />
+      </div>
     );
   }
 }

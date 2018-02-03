@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import Header from './header';
+import Footer from './footer';
 import CardAtom from './cardAtom';
 import baseUrl from '../helpers/urlHelpers';
 
@@ -54,6 +55,7 @@ class ShowCards extends Component {
           )}    
         </Slider>
         )}
+        <Footer/>
     </div>
     );
   }

@@ -288,6 +288,7 @@ Cards.aggregate([
                 bizLogo: { $first: "$bizLogo" }, 
                 bizPosition: { $first: "$bizPosition" }, 
                 veName: { $first: "$veName" }, 
+                veSlug: { $first: "$veSlug" }, 
                 bizAddress: { $first: "$bizAddress" }, 
                 bizLocation: { $first: "$bizLocation" }, 
                 bizName: { $first: "$bizName" }, 

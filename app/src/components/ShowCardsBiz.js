@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import Header from './header';
+import Footer from './footer';
 import CardAtom from './cardAtom';
 import baseUrl from '../helpers/urlHelpers';
 
@@ -36,7 +37,7 @@ class ShowCardsBiz extends Component {
     };
     return (
       <div>
-        <Header />
+        <Header showBack={this.state.cards}/>
         {this.state.cards.map( car=> 
         <Slider {...settings}>
           {car.cards.map( tar => 
@@ -54,6 +55,7 @@ class ShowCardsBiz extends Component {
           )}    
         </Slider>
         )}
+        <Footer/>
     </div>
     );
   }
