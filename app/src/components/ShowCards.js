@@ -19,7 +19,7 @@ class ShowCards extends Component {
     axios.get( `${baseUrl}/api/cards/venues/${this.props.match.params.id}`)
       .then(res => {
         this.setState({ cards: res.data });
-        console.log(this.state.cards);
+        //console.log(this.state.cards);
       });
   }
 

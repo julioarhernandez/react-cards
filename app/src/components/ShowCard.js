@@ -43,7 +43,7 @@ class ShowCard extends Component {
           title : `DealBy - ${res.data[0]["bizName"]} - ${res.data[0]["cards"]["cardTitle"]}`
          });
          document.title = `${this.state.title}`;
-         console.log(this.state.cards);
+         //console.log(this.state.cards);
       });
     // Set page title
     

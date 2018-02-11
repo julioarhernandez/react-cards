@@ -15,7 +15,7 @@ class Show extends Component {
     axios.get('/api/card/'+this.props.match.params.id)
       .then(res => {
         this.setState({ card: res.data });
-        console.log(this.state.card);
+        //console.log(this.state.card);
       });
   }
 
