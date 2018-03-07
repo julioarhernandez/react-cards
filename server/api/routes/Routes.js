@@ -5,6 +5,7 @@ var random = require('random-js');
 var jwt = require('jsonwebtoken');
 var auth = require ('../helpers/authHelpers');
 var Cards = require('../models/Model');
+var Beacon = require('../models/BeaconModel');
 const ObjectId = require("mongodb").ObjectID;
 
 /* GET ALL CardsS */
@@ -316,6 +317,19 @@ router.put('/:id', auth.securedToken, function(req, res, next) {
   }
   });
 });
+
+/* Get cards for ibeacons */
+router.get('/beacons/:beaconMinor', function(req, res, next) {
+      Beacon.find({
+          minor: req.params.beaconMinor
+          }, function (err, post) {
+              if (err) return next(err);
+              res.json(post);
+        // res.json(post);
+      });
+});
+
+
 
 /* UPDATE card by id and business id*/
 router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next) {
