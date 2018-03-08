@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 var auth = require ('../helpers/authHelpers');
 var Cards = require('../models/Model');
 var Beacon = require('../models/BeaconModel');
+var Venue = require('../models/VenueModel');
 const ObjectId = require("mongodb").ObjectID;
 
 /* GET ALL CardsS */
@@ -327,6 +328,15 @@ router.get('/beacons/:beaconMinor', function(req, res, next) {
               res.json(post);
         // res.json(post);
       });
+});
+
+/* Get venues for map */
+router.post('/map/', function(req, res, next) {
+  Venue.find({}, function (err, post) {
+          if (err) return next(err);
+          res.json(post);
+    // res.json(post);
+  });
 });
 
 
