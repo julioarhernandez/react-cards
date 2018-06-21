@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import Header from './header';
+import LocationMessage from './locationMessage';
 import Footer from './footer';
 import CardAtom from './cardAtom';
+import ShowVenue from './ShowVenue';
 import baseUrl from '../helpers/urlHelpers';
 import GeoLocation from './GeoLocation';
 
@@ -12,10 +14,12 @@ class ShowVenues extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: []
+      cards: [],
+      coords: [],
     };
   }
 
+ 
 //   componentDidMount() {
 //     axios.get( `${baseUrl}/api/cards/venues/${this.props.match.params.id}`)
 //       .then(res => {
@@ -28,29 +32,18 @@ class ShowVenues extends Component {
     return (
       <div>
         <Header />
-        {/* {!this.props.isGeolocationAvailable
-            ? <div>Your browser does asdport Geolocation</div>
-            : <div>Silo</div> } */}
-
-<GeoLocation
-  render={({
-    fetchingPosition,
-    position: { coords: { latitude, longitude } = {} } = {},
-    error,
-    getCurrentPosition
-  }) =>
-    <div>
-      <button onClick={getCurrentPosition}>Get Position</button>
-      {error &&
-        <div>
-          {error.message}
-        </div>}
-      <pre>
-        latitude: {latitude}
-        longitude: {longitude}
-      </pre>
-    </div>}
-/>
+        <GeoLocation
+          render={({
+            fetchingPosition,
+            position: { coords: { latitude, longitude } = {} } = {},
+            error,
+            getCurrentPosition
+          }) =>
+            <div className="banner-message">
+              <LocationMessage latitude={latitude} longitude={longitude} error={error && error.message} getCurrentPosition={this.getCurrentPosition}/>
+              <ShowVenue latitude={latitude} longitude={longitude} />
+            </div>}
+        />
         
 
         {/* {this.state.cards.map( car=> 
