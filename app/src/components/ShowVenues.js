@@ -5,7 +5,7 @@ import Header from './header';
 import Footer from './footer';
 import CardAtom from './cardAtom';
 import baseUrl from '../helpers/urlHelpers';
-import Geolocation from './Geolocation';
+import GeoLocation from './GeoLocation';
 
 class ShowVenues extends Component {
 
@@ -28,9 +28,29 @@ class ShowVenues extends Component {
     return (
       <div>
         <Header />
-        {!this.props.isGeolocationAvailable
+        {/* {!this.props.isGeolocationAvailable
             ? <div>Your browser does asdport Geolocation</div>
-            : <div>Silo</div> }
+            : <div>Silo</div> } */}
+
+<GeoLocation
+  render={({
+    fetchingPosition,
+    position: { coords: { latitude, longitude } = {} } = {},
+    error,
+    getCurrentPosition
+  }) =>
+    <div>
+      <button onClick={getCurrentPosition}>Get Position</button>
+      {error &&
+        <div>
+          {error.message}
+        </div>}
+      <pre>
+        latitude: {latitude}
+        longitude: {longitude}
+      </pre>
+    </div>}
+/>
         
 
         {/* {this.state.cards.map( car=> 

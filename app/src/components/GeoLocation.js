@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
-class Geolocation extends Component {
+class GeoLocation extends Component {
   constructor (props) {
     super(props)
 
@@ -75,7 +75,7 @@ class Geolocation extends Component {
   }
 }
 
-Geolocation.propTypes = {
+GeoLocation.propTypes = {
   // https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
   enableHighAccuracy: PropTypes.bool,
   timeout: PropTypes.number,
@@ -87,7 +87,7 @@ Geolocation.propTypes = {
   lazy: PropTypes.bool
 }
 
-Geolocation.defaultProps = {
+GeoLocation.defaultProps = {
   enableHighAccuracy: false,
   timeout: Infinity,
   maximumAge: 0,
@@ -97,4 +97,4 @@ Geolocation.defaultProps = {
   lazy: false
 }
 
-export default Geolocation;
+export default GeoLocation;
