@@ -12,6 +12,7 @@ import ShowCardCoupon from './ShowCardCoupon';
 const RouteApp = () => (
     <Router>
       <div>
+        <Route exact path='/index.html' component={ShowVenues} />
         <Route exact path='/' component={ShowVenues} />
         <Route path='/showvenue/:id' component={ShowCards} />
         <Route path='/showcard/:id' component={ShowCard} />
