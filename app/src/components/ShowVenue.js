@@ -55,7 +55,7 @@ class ShowVenue extends Component {
               <h1> We couldn't find any deal nearby. Sorry :( </h1>
             </div>
           }
-           <a href="http://localhost:3000/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn">Refresh Scan</a>
+           <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn">Refresh Scan</a>
         </div>
     );
   }
