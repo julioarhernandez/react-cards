@@ -42,20 +42,22 @@ class ShowVenue extends Component {
       }
     }
     return (
-        <div>
+        <div className="mat-shadow effect-popup">
           { this.state.link !== '#' &&
            <div>
              <span className="glyphicon glyphicon-refresh glyphicon-spin"></span>
-             <h1>Loading deals near you</h1>
+             <h1>Loading deals nearby</h1>
+             <span className="banner-message__small">Please, enable device location (GPS)</span>
            </div>
           }
           { this.state.link === '#' && 
             <div>
               <span className="glyphicon glyphicon-remove-circle"></span>
               <h1> We couldn't find any deal nearby. Sorry :( </h1>
+              <span className="banner-message__small">Please, move closer to malls or businesses and try again</span>
             </div>
           }
-           <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn">Refresh Scan</a>
+           <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
         </div>
     );
   }
