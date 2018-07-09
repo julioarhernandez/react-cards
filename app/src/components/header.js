@@ -11,7 +11,8 @@ class Header extends Component {
   render() {
     return (
       <div className="banner-header">
-        <img src="../logo-white.svg" alt="DealBy logo - The best deals nearby" />
+        <a href="https://dealby.us/" title="Go Home" alt="Go home">
+          <img src="../logo-white.svg" alt="DealBy logo - The best deals nearby" /></a>
         { this.props.showBack && this.props.showBack.length && 
             <a href={"https://dealby.us/showvenue/" + this.props.showBack[0].veSlug } title="Go to deals list" alt="Go to deals list"><span className="hidden">Go Back</span><span className="glyphicon glyphicon-home" aria-hidden="true"></span></a>
         }

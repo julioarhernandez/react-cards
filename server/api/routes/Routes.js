@@ -24,12 +24,23 @@ router.get('/', auth.securedToken, function(req, res, next) {
 });
 
 /* GET single business, beacon, venue BY ID */
+router.get('/getlinks/:latid/:longid', function(req, res, next) {
+  // Cards.findById(req.params.id, function (err, post) {
+  //   if (err) return next(err);
+  //   res.json(post);
+  // });
+  res.json('#');
+  // res.json('http://localhost:3000/showvenue/ve1');
+});
+
+/* GET venue links by lat and long */
 router.get('/:id', function(req, res, next) {
   Cards.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+
 
 /* GET single card BY ID */
 router.get('/getcard/:cardId', function(req, res, next) {
@@ -373,7 +384,7 @@ router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next
 });
 
 router.get('*', function(req, res){
-    res.json('Are you lost?');
+  res.json('Are you lost?');
 });
 
 

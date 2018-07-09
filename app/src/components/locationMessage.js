@@ -7,6 +7,16 @@ class LocationMessage extends Component {
       link: ''
     };
   }
+
+ recheckLocationPermission = function(){
+      navigator.permissions.query({
+        name: 'geolocation'
+      }).then(function(result) {
+        if (result.state === 'denied') {
+          alert('You have denied the location service for the current page. Please allow the use of location for this to work');
+        } 
+    });
+  }
   
   render() {
     return (
@@ -15,7 +25,7 @@ class LocationMessage extends Component {
                 <div>            
                     Please activate your mobile location and start searching for deals nearby.
                     {this.props.error && <div>{this.props.error}</div>}
-                    <button onClick={this.props.getCurrentPosition}>Look For Deals</button>
+                    <button onClick={this.recheckLocationPermission}>What's wrong?</button>
                 </div>}
         </div>
 

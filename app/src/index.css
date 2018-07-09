@@ -9,6 +9,54 @@ body {
   max-width: 500px;
   margin: 0 auto;
 }
+.banner-message > div{
+    max-width: 300px;
+    border-radius: 5px;
+    margin: 125px auto 58px auto;
+    height: 279px;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+.banner-message img{
+    width: 2em;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 17px;
+}
+.banner-message .glyphicon-remove-circle{
+  font-size: 2em;
+  color: #F44336;
+}
+.banner-message .glyphicon-spin{
+  font-size: 2em;
+  color: #0066cc;
+}
+.glyphicon-spin {
+  -webkit-animation: spin 1000ms infinite linear;
+  animation: spin 1000ms infinite linear;
+}
+@-webkit-keyframes spin {
+  0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(359deg);
+      transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(359deg);
+      transform: rotate(359deg);
+  }
+}
 
 /* Carousel slides */
 
@@ -48,6 +96,15 @@ body {
   font-size: 41px;
 }
 
+.refreshBtn, .refreshBtn:hover, .refreshBtn:focus{
+  border: 1px solid #0066cc;
+  padding: 20px 20px;
+  border-radius: 5px;
+  background-color: #0066cc;
+  color: white;
+  display: inline-block;
+  text-decoration: none;
+}
 
 /* Card slides */
 
