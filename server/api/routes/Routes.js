@@ -25,12 +25,21 @@ router.get('/', auth.securedToken, function(req, res, next) {
 
 /* GET single business, beacon, venue BY ID */
 router.get('/getlinks/:latid/:longid', function(req, res, next) {
-  // Cards.findById(req.params.id, function (err, post) {
-  //   if (err) return next(err);
-  //   res.json(post);
-  // });
-  res.json('#');
-  // res.json('http://localhost:3000/showvenue/ve1');
+  Venue.find({
+     veLocation :
+      { $near :
+         {
+           $geometry : {
+              type : "Point" ,
+              coordinates : [ req.params.latid, req.params.longid] },
+           $maxDistance : 470
+         }
+      }
+  }, { veSlug: 1}, function (err, post) {
+    if (err) return next(err);
+    post = post == "" ? "#" : "https://dealby.us/showvenue/" + post[0].veSlug;
+    res.json(post);
+  });
 });
 
 /* GET venue links by lat and long */
