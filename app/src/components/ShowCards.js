@@ -37,7 +37,7 @@ class ShowCards extends Component {
     };
     return (
       <div>
-        <Header />
+        <Header showRefresh={true}/>
         {this.state.cards.map( car=> 
         <Slider {...settings}>
           {car.cards.map( tar => 

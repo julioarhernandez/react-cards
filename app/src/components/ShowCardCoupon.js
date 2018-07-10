@@ -54,7 +54,7 @@ class ShowCard extends Component {
 
     return (
       <div>
-        <Header showBack={this.state.cards} />
+        <Header showBack={this.state.cards} showRefresh={false}/>
         {this.state.cards.map( car => 
         <div className="roundCard card-only" key={car.cards._id}>
             <div className="bizTitle">
