@@ -25,16 +25,12 @@ router.get('/', auth.securedToken, function(req, res, next) {
 
 /* GET single business, beacon, venue BY ID */
 router.get('/getlinks/:latid/:longid', function(req, res, next) {
-  Venue.find({
-     veLocation :
-      { $near :
-         {
-           $geometry : {
-              type : "Point" ,
-              coordinates : [ req.params.latid, req.params.longid] },
-           $maxDistance : 470
+  Venue.find({veLocation:
+    {$geoIntersects:
+        {$geometry:{ "type" : "Point",
+             "coordinates" : [ req.params.longid, req.params.latid ] }
          }
-      }
+     }
   }, { veSlug: 1}, function (err, post) {
     if (err) return next(err);
     post = post == "" ? "#" : "https://dealby.us/showvenue/" + post[0].veSlug;
