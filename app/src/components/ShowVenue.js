@@ -25,7 +25,7 @@ class ShowVenue extends Component {
 // }
 
   getVenues = function (){
-    console.log('go and find the location at the network api', this.props.latitude);
+    console.log('go and find the location at the network api', this.props.latitude, this.props.longitude);
     axios.get(`${baseUrl}/api/cards/getlinks/${this.props.latitude}/${this.props.longitude}`)
           .then(res => {
             this.setState((prevState, props) => {
@@ -43,21 +43,31 @@ class ShowVenue extends Component {
     }
     return (
         <div className="mat-shadow effect-popup">
-          { this.state.link !== '#' &&
-           <div>
-             <span className="glyphicon glyphicon-refresh glyphicon-spin"></span>
-             <h1>Loading deals nearby</h1>
-             <span className="banner-message__small">Please, enable device location (GPS)</span>
-           </div>
+          { (this.props.longitude && this.state.link === '') &&
+            <div>
+              <span className="glyphicon glyphicon-refresh glyphicon-spin"></span>
+              <h1>Loading deals nearby</h1>
+              <span className="banner-message__small">This won't take too much</span>
+            <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+            </div>
+          }
+          { (this.state.link !== '#' && typeof(this.props.longitude) == 'undefined') &&
+            <div>
+              <span className="glyphicon glyphicon-refresh glyphicon-map-marker"></span>
+              <h1>Getting your position</h1>
+              <span className="banner-message__small">Accessing device location. Remember to enable device location (GPS)</span>
+            <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+            </div>
           }
           { this.state.link === '#' && 
             <div>
               <span className="glyphicon glyphicon-remove-circle"></span>
               <h1> We couldn't find any deal nearby. Sorry :( </h1>
               <span className="banner-message__small">Please, move closer to malls or businesses and try again</span>
+              <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
-           <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+            
         </div>
     );
   }
