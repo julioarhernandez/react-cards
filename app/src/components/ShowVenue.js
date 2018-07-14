@@ -56,7 +56,9 @@ class ShowVenue extends Component {
               <span className="glyphicon glyphicon-refresh glyphicon-map-marker"></span>
               <h1>Getting your position</h1>
               <span className="banner-message__small">Accessing device location. Remember to enable device location (GPS)</span>
-            <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+              { this.props.error }
+              {/* <span className="banner-message__small">Accessing device location. Remember to enable device location (GPS)</span> */}
+              <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
           { this.state.link === '#' && 

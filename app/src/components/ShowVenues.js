@@ -37,7 +37,7 @@ class ShowVenues extends Component {
           }) =>
             <div className="banner-message">
               {/* <LocationMessage latitude={latitude} longitude={longitude} error={error && error.message} getCurrentPosition={this.getCurrentPosition}/> */}
-              <ShowVenue latitude={latitude} longitude={longitude} />
+              <ShowVenue latitude={latitude} longitude={longitude} error={error && error.message}/>
             </div>}
         />
       
