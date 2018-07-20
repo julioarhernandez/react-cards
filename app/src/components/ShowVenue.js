@@ -39,6 +39,7 @@ class ShowVenue extends Component {
     if (this.state.link !== '' && this.state.link !== '#'){
       if (typeof window !== 'undefined') {
           window.location.href = this.state.link;
+          // console.log('location is', this.state.link);
       }
     }
     return (
@@ -51,12 +52,12 @@ class ShowVenue extends Component {
             <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
-          { (this.state.link !== '#' && typeof(this.props.longitude) == 'undefined') &&
+          { (this.state.link !== '#' && typeof(this.props.longitude) === 'undefined') && this.props.error === '' &&
             <div>
               <span className="glyphicon glyphicon-refresh glyphicon-map-marker"></span>
-              <h1>Getting your position</h1>
-              <span className="banner-message__small">Accessing device location. Remember to enable device location (GPS)</span>
-              { this.props.error }
+              <h1>Accessing device position</h1>
+              <span className="banner-message__small">Device location (GPS) should be enabled to scan nearby deals</span>
+              
               {/* <span className="banner-message__small">Accessing device location. Remember to enable device location (GPS)</span> */}
               <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
@@ -66,6 +67,14 @@ class ShowVenue extends Component {
               <span className="glyphicon glyphicon-remove-circle"></span>
               <h1> We couldn't find any deal nearby. Sorry :( </h1>
               <span className="banner-message__small">Please, move closer to malls or businesses and try again</span>
+              <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+            </div>
+          }
+          { this.props.error !== '' && typeof(this.props.longitude) === 'undefined' &&
+            <div>
+              <span className="glyphicon glyphicon-remove-circle"></span>
+              <h1> We couldn't get your location. Sorry :( </h1>
+              <span className="banner-message__small">Please check you have gps enabled and refresh scan</span>
               <a href="https://dealby.us/" alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
