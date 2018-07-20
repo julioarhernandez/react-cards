@@ -51,10 +51,10 @@ class GeoLocation extends Component {
           onSuccess(position)
         )
       },
-      err => {
+      error => {
         if (this.willUnmount) return
 
-        this.setState({ err, fetchingPosition: false }, () => onError(err))
+        this.setState({ error, fetchingPosition: false }, () => onError(error))
       },
       { enableHighAccuracy, timeout, maximumAge }
     )
