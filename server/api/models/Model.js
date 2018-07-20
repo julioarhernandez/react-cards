@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
 
 var CardSchema = new mongoose.Schema({
-  beName: String,
-  beLink: String,
-  beBattery: String,
-  beBrand: String,
   beInstalledDate: { type: Date, default: Date.now },
   bizId: Number,
   bizName: String,

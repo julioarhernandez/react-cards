@@ -65,8 +65,6 @@ router.get('/getcard/:cardId', function(req, res, next) {
               }
     },
     {$project: {
-      beName: 1,
-      beLink: 1,
       bizId: 1,
       bizPhone: 1,
       bizWeb: 1,
@@ -133,10 +131,6 @@ router.post('/', auth.securedToken, function(req, res, next) {
       var randomId = new random(random.engines.mt19937().autoSeed());
       var bizRandom = randomId.integer(100000, 999999);
       var objectToInsert = {
-        beName: "BlueBeaconIdentify",
-        beLink: "LinkShoppingPHY(7DsxH)",
-        beBattery: "100%",
-        beBrand: "Estimote",
         bizName: "BizName",
         bizId: bizRandom,
         bizWeb: "",
@@ -152,13 +146,19 @@ router.post('/', auth.securedToken, function(req, res, next) {
         },
         bizLocation: {
           type: "Point", 
-          coordinates: [25.747206, -80.387772]
+          coordinates: [-80.387772, 25.747206]
         },
         veName: "Venue-Name(Mall-name)",
         veSlug: "ve1",
         veLocation: {
-          type: "Point", 
-          coordinates: [25.747206, -80.387772]
+          type: "Polygon", 
+          coordinates: [[
+              [-80.387772, 25.747206],
+              [-80.387772, 25.747206],
+              [-80.387772, 25.747206],
+              [-80.387772, 25.747206],
+              [-80.387772, 25.747206]
+          ]]
         },
         cards: [
           {
@@ -258,9 +258,7 @@ Cards.aggregate([
                   ] 
             }},
   { $group: { 
-              _id: "$_id",  
-              beName: { $first: "$beName" }, 
-              beLink: { $first: "$beLink" }, 
+              _id: "$_id",   
               bizName: { $first: "$bizName" }, 
               bizPhone: { $first: "$bizPhone" }, 
               bizWeb: { $first: "$bizWeb" }, 
@@ -297,9 +295,7 @@ Cards.aggregate([
                   ] 
             }},
     { $group: { 
-                _id: "$_id",  
-                beName: { $first: "$beName" }, 
-                beLink: { $first: "$beLink" }, 
+                _id: "$_id",   
                 bizName: { $first: "$bizName" }, 
                 bizPhone: { $first: "$bizPhone" }, 
                 bizWeb: { $first: "$bizWeb" }, 
@@ -346,16 +342,13 @@ router.get('/beacons/:beaconMinor', function(req, res, next) {
       });
 });
 
-/* Get venues for map */
+/* Get venues info fot map  markers*/
 router.post('/map/', function(req, res, next) {
-  Venue.find({}, function (err, post) {
+  Venue.find({}, {vePointLocation: 1, veSlug: 1},function (err, post) {
           if (err) return next(err);
           res.json(post);
-    // res.json(post);
   });
 });
-
-
 
 /* UPDATE card by id and business id*/
 router.put('/updateCard/:id/:cardId', auth.securedToken, function(req, res, next) {

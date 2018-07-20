@@ -5,6 +5,10 @@ var VenueSchema = new mongoose.Schema({
     veSlug: String,
     veLocation: {
       type: {type:String, default: "Point"}, 
+      coordinates: [[[Number, Number]]]
+    },
+    vePointLocation: {
+      type: {type:String, default: "Point"}, 
       coordinates: [Number, Number]
     },
     veAddress: {
