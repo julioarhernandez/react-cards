@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import Header from './header';
 import Footer from './footer';
-// import axios from 'axios';
-// import baseUrl from '../helpers/urlHelpers';
+import axios from 'axios';
+import baseUrl from '../helpers/urlHelpers';
 
 const styleMap = {
     width: '100%',
-    height: '85vh',
+    height: '71vh',
   }
 
 class ShowMaps extends Component {
@@ -52,7 +52,7 @@ class ShowMaps extends Component {
      MapMarker = (props) => {
         return(
             <Marker onClick={this.onMarkerClick} 
-                    name={props.lat} 
+                    name={props.slug} 
                     position={{ lat: props.lat, lng: props.lng }}
                     key={props.lat}
             />
@@ -61,11 +61,14 @@ class ShowMaps extends Component {
 
     fetchPlaces(mapProps, map) {
     // Give the call to api to receive the markers
-    this.setState({ remoteMarkers: [
-        { lat: 25.736589, lng: -80.385687 },
-        { lat: 26.736589, lng: -80.385687 },
-        { lat: 27.736589, lng: -80.385687 },
-    ]});
+    let markersList = [];
+    axios.post( `${baseUrl}/api/cards/map/`)
+        .then(res => {
+            res.data.map( (item) => {
+                markersList.push({'slug': item.veSlug, 'lat' : item.vePointLocation.coordinates[1], 'lng' : item.vePointLocation.coordinates[0]});
+            });
+            this.setState({ remoteMarkers: markersList });
+        });
     };
 
       render() {
@@ -78,6 +81,7 @@ class ShowMaps extends Component {
                         lat: 25.736589,
                         lng: -80.385687
                       }}
+                      className="mapStyles"
                       style={styleMap}
                       zoom={11}>
 
@@ -89,11 +93,12 @@ class ShowMaps extends Component {
                         visible={this.state.showingInfoWindow}
                         onClose={this.windowHasClosed}>
                         <div>
-                            <h1>Directions</h1>
-                            <span>{this.state.selectedPlace.name}</span>
+                            <h1>Dealby deals</h1>
+                            <span><a href={ '../showvenue/' + this.state.selectedPlace.name} >Deals at this venue</a></span>
                         </div>
                     </InfoWindow>
                 </Map>
+                <Footer />
             </div>
           );
         }
