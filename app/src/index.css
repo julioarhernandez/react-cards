@@ -126,11 +126,11 @@ body {
   max-width: 100%;
 }
 
-.slick-slide {
-  border-radius: 6px;
-  background-color: white;
+/* .slick-slide { */
+  /* border-radius: 6px; */
+  /* background-color: white; */
   /* max-height: 364px; */
-}
+/* } */
 
 .slick-next {
   right: -11px;
@@ -167,11 +167,11 @@ body {
 
 /* Card slides */
 
-.innerSlide {
-  border-radius: 6px;
-  box-shadow: 2px 1px 18px #888888;
-  margin: 20px;
-}
+/* .innerSlide { */
+  /* border-radius: 6px; */
+  /* box-shadow: 2px 1px 18px #888888; */
+  /* margin: 20px; */
+/* } */
 
 h1, h2, h3, h4, h5 {
   font-family: sans-serif;
@@ -335,6 +335,12 @@ h4, h5{
 .banner-footer .legal{
   font-size: 80%;
   text-align: center;
+ }
+ .roundCard{
+    margin: 20px;
+    border-radius: 6px;
+    background: white;
+    box-shadow: 2px 1px 18px #888888;
  }
 .roundCard a, 
 .roundCard a:hover, 
