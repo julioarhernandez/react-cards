@@ -133,11 +133,11 @@ body {
 /* } */
 
 .slick-next {
-  right: -11px;
+  right: 0;
 }
 
 .slick-prev {
-  left: -10px;
+  left: 0;
   z-index: 1;
 }
 
@@ -150,6 +150,7 @@ body {
 .slick-next:before,
 .slick-prev:before {
   font-size: 41px;
+
 }
 
 .refreshBtn, .refreshBtn:hover, .refreshBtn:focus{
@@ -158,7 +159,7 @@ body {
   margin-top: 10px;
   border-radius: 5px;
   background-color: #0066cc;
-  color: white;
+  color: #0066cc;
   display: inline-block;
   text-decoration: none;
   display: block;
