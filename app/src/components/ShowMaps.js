@@ -7,7 +7,7 @@ import baseUrl from '../helpers/urlHelpers';
 
 const styleMap = {
     width: '100%',
-    height: '71vh',
+    height: '100%',
   }
 
 class ShowMaps extends Component {
@@ -74,7 +74,7 @@ class ShowMaps extends Component {
       render() {
           return (
             <div>
-                <Header showHome/>
+                <Header showHome extraClass="map" />
                 <Map google={this.props.google} 
                      onReady={this.fetchPlaces}
                      initialCenter={{

@@ -53,7 +53,7 @@ class ShowCard extends Component {
 
     return (
       <div>
-         <Header showBack={this.state.cards} showRefresh={true} />
+         <Header showBack={this.state.cards} showRefresh={true} extraClass=""/>
         {this.state.cards.map( car => 
         <div className="roundCard card-only" key={car.cards._id}>
             <div className="bizTitle">

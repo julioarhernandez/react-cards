@@ -37,7 +37,7 @@ class ShowCardsBiz extends Component {
     };
     return (
       <div>
-        <Header showBack={this.state.cards}/>
+        <Header showBack={this.state.cards} extraClass=""/>
         {this.state.cards.map( car=> 
         <Slider {...settings}>
           {car.cards.map( tar => 

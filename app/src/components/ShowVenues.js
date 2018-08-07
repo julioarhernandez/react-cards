@@ -27,7 +27,7 @@ class ShowVenues extends Component {
   render() {
     return (
       <div>
-        <Header showMap/>
+        <Header showMap extraClass=""/>
         <GeoLocation
           render={({
             fetchingPosition,
