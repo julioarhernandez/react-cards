@@ -11,7 +11,7 @@ class Header extends Component {
   
   render() {
     return (
-      <div className="banner-header">
+      <div className={"banner-header " + this.props.extraClass} >
         <a href="https://dealby.us/" title="Go Home" alt="Go home">
           <img src={logo} alt="DealBy logo - The best deals nearby" /></a>
         { this.props.showBack && this.props.showBack.length && 
