@@ -118,7 +118,7 @@ body {
 
 .slick-list,
 .slick-slider {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .slick-list img,
@@ -186,7 +186,7 @@ h1, h2, h3, h4, h5 {
   text-transform: uppercase;
 }
 .materialLink{
-  padding: 0px 10px 20px 18px;
+  padding: 0px 10px 15px 18px;
     display: block;
     text-transform: uppercase;
     font-weight: 700;
@@ -194,7 +194,7 @@ h1, h2, h3, h4, h5 {
 
 hr{
   padding: 5px;
-  margin: 10px;
+  margin: 10px 15px 0px;
 }
 h3{
   font-size: 120%;
@@ -206,6 +206,7 @@ h4, h5{
 .card-only img {
   max-width: 100%;
 }
+
 
 .dropdown {
   display: inline-block;
@@ -256,6 +257,10 @@ h4, h5{
 .roundCard ul{
   padding: 15px 15px 15px 35px;
 }
+.Card-detail-link-header{
+  padding: 0 17px;
+}
+
 
 .card-only {
   border-radius: 6px;
@@ -282,7 +287,7 @@ h4, h5{
   color: #0066cc;
   text-align: left;
   background: #0066cc;
-  padding: 30px 20px 28vh 30px;
+  padding: 30px 20px 25vh 30px;
   margin-bottom: -25vh;
 }
 .banner-header.map{
@@ -304,7 +309,7 @@ h4, h5{
   margin-left: 5px;
   float: right;
   vertical-align: middle;
-  margin-top: 11px;
+  margin-top: 5px;
   font-size: 1.7em;
 }
 .glyphicon-map-marker{

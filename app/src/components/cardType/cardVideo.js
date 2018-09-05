@@ -20,7 +20,7 @@ const CardVideo = (props) => {
                <DropDownMenu web={props.bizWeb} number={props.bizPhone} location={props.bizLocation} />
             </div>
             <a href={props.cardData.cardLink} target="_blank">
-                <h2 className="Card-detail-link" >{props.cardData.cardTitle}</h2>
+                <h2 className="Card-detail-link-header" >{props.cardData.cardTitle}</h2>
             </a>
             <hr />
             <a href={props.cardData.cardLink} className="materialLink" target="_blank">
