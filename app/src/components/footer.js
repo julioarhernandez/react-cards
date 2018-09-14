@@ -9,7 +9,6 @@ const Footer = () => {
             <li><a href="https://bizmarketing.us/en/privacy-policy-dealby/" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
             <li><a href="https://bizmarketing.us/en/dealby-mejores-ofertas/" target="_blank" rel="noopener noreferrer" >know more</a></li>
         </ul>
-        <div className="legal">DealBy is a product of <a href="https://bizmarketing.us/" target="_blank" rel="noopener noreferrer" >Bizmarketing.us L.L.C</a> © 2018 </div>
         {/* <div className="legal"> All rights reserved. </div> */}
       </div>
     );

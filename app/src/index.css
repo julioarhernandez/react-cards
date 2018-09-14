@@ -215,6 +215,18 @@ h4, h5{
   right: 4px;
 }
 
+.card-only .dropdown{
+  top: 24px;
+}
+.card-only .contextMenu .glyphicon-info-sign{
+  font-size: 22px;
+  color: #ccc;
+}
+
+.card-only .dropdown__content {
+  top: -6px;
+}
+
 .dropdown__content {
   display: none;
   position: absolute;
@@ -223,14 +235,15 @@ h4, h5{
   background: white;
   box-shadow: 2px 1px 18px #888888;
   border-radius: 7px;
-  width: 132px;
+  width: 147px;
 }
 .dropdown__content ul{
   list-style: none;
   padding: 15px 15px 0 !important;
 }
 .dropdown__content li{
-  font-size: 85%;
+  font-size: 100%;
+  text-transform: uppercase;
   margin-bottom: 15px;
   color: #464646;
 }
