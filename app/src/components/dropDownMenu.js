@@ -6,7 +6,7 @@ const DropDownMenu = (props) => {
     return (
         <div>
             <Dropdown>
-                <DropdownTrigger><div className="contextMenu"></div></DropdownTrigger>
+                <DropdownTrigger><div className="contextMenu"><span className="glyphicon glyphicon-info-sign"></span></div></DropdownTrigger>
                 <DropdownContent>
                     <ul>
                         <li>

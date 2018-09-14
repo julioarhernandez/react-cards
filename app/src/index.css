@@ -218,8 +218,8 @@ h4, h5{
 .dropdown__content {
   display: none;
   position: absolute;
-  right: 8px;
-  top: 13px;
+  right: 37px;
+  top: -83px;
   background: white;
   box-shadow: 2px 1px 18px #888888;
   border-radius: 7px;
@@ -242,16 +242,26 @@ h4, h5{
 .dropdown--active .dropdown__content {
   display: block;
 }
+.aside{
+  position: relative;
+}
+.aside_link{
+  width: 50%;
+}
 
+.aside_info{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 .contextMenu{
   position: absolute;
-  top: 16px;
+  top: 0;
   right: 4px;
 }
-.contextMenu:after{
-    content: '\2807';
-    font-size: 30px;
-    color: black;
+.contextMenu .glyphicon-info-sign{
+  font-size: 22px;
+  color: #ccc;
 }
 
 .roundCard ul{
@@ -316,6 +326,9 @@ h4, h5{
   font-size: 1.8em;
   color: #0066cc;
 }
+.dropdown__content .glyphicon-map-marker{
+  font-size: inherit;
+}
 
 .mapStyles h1{
   padding: 10px 19px 10px 0;
@@ -327,7 +340,8 @@ h4, h5{
     text-decoration: underline;
     font-weight: 700;
 }
-.banner-header .glyphicon-map-marker{
+.banner-header .glyphicon-map-marker,
+.banner-header .glyphicon-refresh{
   margin-right: 15px !important;
 }
 
@@ -375,8 +389,8 @@ h4, h5{
   text-decoration: none;
 } 
 .roundCard .imgWrap{
-  min-height: 245px;
-  
+  /* min-height: 245px; */
+  height: 178px;
   background: url('./images/loop.gif'),-moz-linear-gradient(top, rgba(0,102,204,0.05) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
   background: url('./images/loop.gif'),-webkit-linear-gradient(top, rgba(0,102,204,0.05) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: url('./images/loop.gif'),linear-gradient(to bottom, rgba(0,102,204,0.05) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -420,6 +434,14 @@ h4, h5{
   border-radius: 50%;
   float: left;
   margin: 23px 10px;
+  border: 1px solid rgba(0, 102, 204, 0.42);
+}
+#imgletterhead-home {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  float: left;
+  margin: 15px 8px 0 18px;
   border: 1px solid rgba(0, 102, 204, 0.42);
 }
 

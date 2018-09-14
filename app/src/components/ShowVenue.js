@@ -38,7 +38,7 @@ class ShowVenue extends Component {
   refreshPage = function(){
     console.log('refresh page');
     if (typeof window !== 'undefined') {
-      window.location.reload();
+      window.location.reload(true);
     }
   }
 
@@ -55,8 +55,8 @@ class ShowVenue extends Component {
             <div>
               <span className="glyphicon glyphicon-refresh glyphicon-spin"></span>
               <h1>Loading deals nearby</h1>
-              <span className="banner-message__small">This won't take too much</span>
-              <a href="#" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+              <span className="banner-message__small">This won't take much</span>
+              <a href="javascript:void(0)" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
           { (this.state.link !== '#' && typeof(this.props.longitude) === 'undefined') && this.props.error === '' &&
@@ -66,7 +66,7 @@ class ShowVenue extends Component {
               <span className="banner-message__small">Device location (GPS) should be enabled to scan nearby deals</span>
               
               {/* <span className="banner-message__small">Accessing device location. Remember to enable device location (GPS)</span> */}
-              <a href="#" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+              <a href="javascript:void(0)" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
           { this.state.link === '#' && 
@@ -74,7 +74,7 @@ class ShowVenue extends Component {
               <span className="glyphicon glyphicon-remove-circle"></span>
               <h1> We couldn't find any deal nearby. Sorry :( </h1>
               <span className="banner-message__small">Please, move closer to malls or businesses and try again</span>
-              <a href="#" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+              <a href="javascript:void(0)" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
           { this.props.error !== '' && typeof(this.props.longitude) === 'undefined' &&
@@ -82,7 +82,7 @@ class ShowVenue extends Component {
               <span className="glyphicon glyphicon-remove-circle"></span>
               <h1> We couldn't get your location. Sorry :( </h1>
               <span className="banner-message__small">Please check you have gps enabled and refresh scan</span>
-              <a href="#" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
+              <a href="javascript:void(0)" onClick={ this.refreshPage } alt="Refresh Scan" title="Refresh scanning process" className="refreshBtn mat-shadow ripple">Refresh Scan</a>
             </div>
           }
             

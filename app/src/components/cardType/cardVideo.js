@@ -14,18 +14,24 @@ const CardVideo = (props) => {
                 </div>
             </a>
             <div className="bizTitle">
-               {/* <img id="imgletterhead" src={props.bizLogo} alt={props.bizName}/> */}
+               <img id="imgletterhead" src={props.bizLogo} alt={props.bizName}/>
                <h2>{props.bizName}</h2>
-               {/* <span>{props.bizAddress.street}. {props.bizAddress.county}, {props.bizAddress.state} {props.bizAddress.zip}</span> */}
-               <DropDownMenu web={props.bizWeb} number={props.bizPhone} location={props.bizLocation} />
             </div>
             <a href={props.cardData.cardLink} target="_blank">
                 <h2 className="Card-detail-link-header" >{props.cardData.cardTitle}</h2>
             </a>
             <hr />
-            <a href={props.cardData.cardLink} className="materialLink" target="_blank">
-                Open Video
-            </a>
+            <div className="aside">
+                <div className="aside_link">
+                <a href={props.cardData.cardLink} className="materialLink" target="_blank">
+                    Open Video
+                </a>
+                </div>
+                <div className="aside_info">
+                    <DropDownMenu web={props.bizWeb} number={props.bizPhone} location={props.bizLocation} />
+                </div>
+            </div>
+           
         </div>
 
         // <div className="roundCard fullImage fullVideo" key={props.cardData._id}>
