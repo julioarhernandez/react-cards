@@ -75,6 +75,7 @@ class ShowMaps extends Component {
           return (
             <div>
                 <Header showHome extraClass="map" />
+                <div className="wrapperName">
                 <Map google={this.props.google} 
                      onReady={this.fetchPlaces}
                      initialCenter={{
@@ -98,6 +99,7 @@ class ShowMaps extends Component {
                         </div>
                     </InfoWindow>
                 </Map>
+                </div>
                 <Footer />
             </div>
           );
