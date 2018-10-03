@@ -11,7 +11,7 @@ exports.securedToken = (req, res, next) => {
     }
 }
 exports.isUserAuthenticated = (req) => {
-    return ( req.body.user == process.env.USERNAME);
+    return ( req.body.username == process.env.USERNAME);
 }
 exports.getSecureKey = () => {
     return process.env.SECRET;

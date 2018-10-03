@@ -91,7 +91,7 @@ router.post('/login', function(req, res) {
   //user admin only
   if ( auth.isUserAuthenticated(req) ){
     const user = { name: process.env.USERNAME };
-    const token = jwt.sign({user}, auth.getSecureKey());
+    const token = jwt.sign({user}, auth.getSecureKey(), {expiresIn: "1h"});
     res.json( {token : token } );
   }else{
     res.sendStatus(403);
@@ -241,41 +241,179 @@ router.post('/addcard/:id',  auth.securedToken, function(req, res, next) {
   });
 });
 
+/* create a venue */
+router.post('/venue/',  auth.securedToken, function(req, res, next) {
+  jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+    if (err){
+      res.sendStatus(403);
+    }else{
+            // Create random biz id
+            // var randomId = new random(random.engines.mt19937().autoSeed());
+            // var bizRandom = randomId.integer(100000, 999999);
+            var venueToInsert = {
+                veName: req.body.veName, 
+                veSlug: req.body.veSlug, 
+                veLocation: {
+                    coordinates: [
+                        [
+                          [-80.3908847,25.7482149],[-80.3908954,25.7482342],[-80.3908847,25.7482149]
+                        ]
+                    ], 
+                    type: "Polygon"
+                }, 
+                vePointLocation: {
+                    coordinates: [
+                        req.body.vePointLocationLatitude, 
+                        req.body.vePointLocationLongitude
+                    ], 
+                    type: "Point"
+                }, 
+                veAddress: {
+                    country: req.body.veAddressCountry , 
+                    state:  req.body.veAddressState, 
+                    street:  req.body.veAddressStreet, 
+                    zip:  req.body.veAddressZip, 
+                    county: req.body.veAddressCounty 
+                }
+            };
+            Venue.create(venueToInsert, function (err, post) {
+              if (err) return next(err);
+              res.sendStatus(200);
+            });
+            // var objectToInsert = {
+            //   bizName: "BizName",
+            //   bizId: bizRandom,
+            //   bizWeb: "",
+            //   bizPhone: "",
+            //   bizLogo: "http://img-src",
+            //   bizPosition: 1,
+            //   bizAddress: {
+            //     country: "US",
+            //     state: "FL",
+            //     street: "",
+            //     zip: "",
+            //     county: "Miami"
+            //   },
+            //   bizLocation: {
+            //     type: "Point", 
+            //     coordinates: [-80.387772, 25.747206]
+            //   },
+            //   veName: "Venue-Name(Mall-name)",
+            //   veSlug: "ve1",
+            //   veLocation: {
+            //     type: "Polygon", 
+            //     coordinates: [[
+            //         [-80.387772, 25.747206],
+            //         [-80.387772, 25.747206],
+            //         [-80.387772, 25.747206],
+            //         [-80.387772, 25.747206],
+            //         [-80.387772, 25.747206]
+            //     ]]
+            //   },
+            //   cards: [
+            //     {
+            //       cardTitle: "",
+            //       cardContent: "",
+            //       cardImgSrc: "",
+            //       cardExpiration: "",
+            //       cardCoupon: "",
+            //       cardPosition: 1,
+            //       cardLink: "",
+            //       cardBundle: "1",
+            //       cardType: "1"
+            //     },
+            //     {
+            //       cardTitle: "",
+            //       cardContent: "",
+            //       cardImgSrc: "",
+            //       cardExpiration: "",
+            //       cardCoupon: "",
+            //       cardPosition: 2,
+            //       cardLink: "",
+            //       cardBundle: "1",
+            //       cardType: "1"
+            //     },
+            //     {
+            //       cardTitle: "",
+            //       cardContent: "",
+            //       cardImgSrc: "",
+            //       cardExpiration: "",
+            //       cardCoupon: "",
+            //       cardPosition: 3,
+            //       cardLink: "",
+            //       cardBundle: "1",
+            //       cardType: "1"
+            //     },
+            //     {
+            //       cardTitle: "",
+            //       cardContent: "",
+            //       cardImgSrc: "",
+            //       cardExpiration: "",
+            //       cardCoupon: "",
+            //       cardPosition: 4,
+            //       cardLink: "",
+            //       cardBundle: "1",
+            //       cardType: "1"
+            //     },
+            //     {
+            //       cardTitle: "",
+            //       cardContent: "",
+            //       cardImgSrc: "",
+            //       cardExpiration: "",
+            //       cardCoupon: "",
+            //       cardPosition: 5,
+            //       cardLink: "",
+            //       cardBundle: "1",
+            //       cardType: "1"
+            //     }
+            //   ]
+            // };
+      // Insert into db
+
+      // Cards.findByIdAndUpdate({_id: req.params.id}, {$push: {cards: req.body}}, function (err, post) {
+      //   if (err) return next(err);
+      //   res.json(post);
+      // });
+
+    }
+  });
+});
+
 router.get('/venues/:venueSlug', function(req, res, next) {
   // TODO - remove this agregation and replace by a simple find
   // This was done to trunckate the cardContent, in next development
   // we'll use the whole cardContent data in the same card, and when
   // you click it it'll just expand as a modal window.
 
-Cards.aggregate([
-  { $match: { "veSlug": {$eq: req.params.venueSlug }}},
-  { $unwind: "$cards" },
-  { $sort: { "cards.cardPosition": 1 } },
-  { $match: { "cards.cardPosition": {$ne: 0 }, 
-            $or: [
-                    {"cards.cardExpiration": { $gte: new Date() }}, 
-                    {"cards.cardExpiration": null }
-                  ] 
-            }},
-  { $group: { 
-              _id: "$_id",   
-              bizName: { $first: "$bizName" }, 
-              bizPhone: { $first: "$bizPhone" }, 
-              bizWeb: { $first: "$bizWeb" }, 
-              bizLogo: { $first: "$bizLogo" }, 
-              bizPosition: { $first: "$bizPosition" }, 
-              veName: { $first: "$veName" }, 
-              bizAddress: { $first: "$bizAddress" }, 
-              bizLocation: { $first: "$bizLocation" }, 
-              bizName: { $first: "$bizName" }, 
-              cards: { $push: "$cards" } 
-            }
-  },
-  { $sort: { "bizPosition": 1 } }
-], function (err, post) {
-          if (err) return next(err);
-          res.json(post);
-        });
+  Cards.aggregate([
+    { $match: { "veSlug": {$eq: req.params.venueSlug }}},
+    { $unwind: "$cards" },
+    { $sort: { "cards.cardPosition": 1 } },
+    { $match: { "cards.cardPosition": {$ne: 0 }, 
+              $or: [
+                      {"cards.cardExpiration": { $gte: new Date() }}, 
+                      {"cards.cardExpiration": null }
+                    ] 
+              }},
+    { $group: { 
+                _id: "$_id",   
+                bizName: { $first: "$bizName" }, 
+                bizPhone: { $first: "$bizPhone" }, 
+                bizWeb: { $first: "$bizWeb" }, 
+                bizLogo: { $first: "$bizLogo" }, 
+                bizPosition: { $first: "$bizPosition" }, 
+                veName: { $first: "$veName" }, 
+                bizAddress: { $first: "$bizAddress" }, 
+                bizLocation: { $first: "$bizLocation" }, 
+                bizName: { $first: "$bizName" }, 
+                cards: { $push: "$cards" } 
+              }
+    },
+    { $sort: { "bizPosition": 1 } }
+  ], function (err, post) {
+            if (err) return next(err);
+            res.json(post);
+          });
   });
 
   router.get('/bizs/:bizId', function(req, res, next) {
@@ -314,7 +452,7 @@ Cards.aggregate([
             if (err) return next(err);
             res.json(post);
           });
-    });
+});
 
 
 /* UPDATE biz, beacon, venue*/
