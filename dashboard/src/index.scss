@@ -1,3 +1,8 @@
+/* Global variables */
+
+$primary-blue: #0066cc;
+$white: #fff;
+
 body {
   margin: 0;
   padding: 0;
@@ -7,6 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

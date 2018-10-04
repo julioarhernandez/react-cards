@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AuthService from './AuthService';
 
-import './login.css';
+import './login.scss';
 
 class Login extends Component {
     constructor(){
@@ -20,25 +20,35 @@ class Login extends Component {
                 <div className="card">
                     <h1>dealBy login</h1>
                     <form onSubmit={this.handleFormSubmit}>
+                        <div className="form-group">
+                        <label for="username">USERNAME</label>
                         <input
                             className="form-item"
                             placeholder="Username goes here..."
                             name="username"
+                            id="username"
                             type="text"
                             onChange={this.handleChange}
                         />
+                        </div>
+                        <div className="form-group">
+                        <label for="password">PASSWORD</label>
                         <input
                             className="form-item"
                             placeholder="Password goes here..."
                             name="password"
+                            id="password"
                             type="password"
                             onChange={this.handleChange}
                         />
+                        </div>
+                        <div className="form-group">
                         <input
                             className="form-submit"
                             value="SUBMIT"
                             type="submit"
                         />
+                        </div>
                     </form>
                 </div>
             </div>
