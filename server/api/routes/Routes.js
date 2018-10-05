@@ -5,6 +5,7 @@ var random = require('random-js');
 var jwt = require('jsonwebtoken');
 var auth = require ('../helpers/authHelpers');
 var Cards = require('../models/Model');
+var User = require('../models/UserModel');
 var Beacon = require('../models/BeaconModel');
 var Venue = require('../models/VenueModel');
 const ObjectId = require("mongodb").ObjectID;
@@ -88,14 +89,54 @@ router.get('/getcard/:cardId', function(req, res, next) {
 
 // Authentication post page 
 router.post('/login', function(req, res) {
-  //user admin only
-  if ( auth.isUserAuthenticated(req) ){
-    const user = { name: process.env.USERNAME };
-    const token = jwt.sign({user}, auth.getSecureKey(), {expiresIn: "1h"});
-    res.json( {token : token } );
-  }else{
-    res.sendStatus(403);
-  }
+  auth.isUserAuthenticated(req, function(err, user){
+    if(user && !err){
+      const payload={
+        email: user.email,
+        type: user.type,
+        status: user.status
+      };
+      const token = jwt.sign({payload}, auth.getSecureKey(), {expiresIn: "24h"});
+      res.json( {token : token } );
+    }else{
+      res.sendStatus(403);
+    }
+  });
+  // if ( auth.isUserAuthenticated(req) ){
+  //   console.log('its authtenticate');
+    
+  //   const user = { 
+  //     name: process.env.USERNAME 
+  //   };
+  //   const token = jwt.sign({user}, auth.getSecureKey(), {expiresIn: "1h"});
+  //   res.json( {token : token } );
+  // }else{
+  //   res.sendStatus(403);
+  // }
+//   User.findOne({ email: req.body.username}, function (err, user) {
+//     if (err) return false;
+
+//     if(!user){
+//       res.sendStatus(403);
+//     }
+//     else
+//     {
+//         user.comparePassword( req.body.password, function(err, isMatch) {
+//             if(isMatch && !err){
+//               const payload={
+//                 email: user.email,
+//                 type: user.type,
+//                 status: user.status
+//               };
+//               const token = jwt.sign({payload}, auth.getSecureKey(), {expiresIn: "24h"});
+//               res.json( {token : token } );
+//             }else{
+//               res.sendStatus(403);
+//             }
+//         });
+//     }
+// });
+
 });
 
 

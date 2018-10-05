@@ -9,6 +9,11 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.Auth = new AuthService();
+        this.state = {
+            username: '',
+            password: ''
+          };
+
     }
     componentWillMount(){
         if(this.Auth.loggedIn())
@@ -21,10 +26,10 @@ class Login extends Component {
                     <h1>dealBy login</h1>
                     <form onSubmit={this.handleFormSubmit}>
                         <div className="form-group">
-                        <label for="username">USERNAME</label>
+                        <label htmlFor="username">Email</label>
                         <input
                             className="form-item"
-                            placeholder="Username goes here..."
+                            placeholder="Email goes here..."
                             name="username"
                             id="username"
                             type="text"
@@ -32,7 +37,7 @@ class Login extends Component {
                         />
                         </div>
                         <div className="form-group">
-                        <label for="password">PASSWORD</label>
+                        <label htmlFor="password">PASSWORD</label>
                         <input
                             className="form-item"
                             placeholder="Password goes here..."
