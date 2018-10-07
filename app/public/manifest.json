@@ -1,6 +1,6 @@
 {
-  "short_name": "dealBy cards",
-  "name": "Show nearby deals",
+  "short_name": "DealBy",
+  "name": "Find deals nearby",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "dealby-1922.png",
+      "src": "dealby-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "dealby-5122.png",
+      "src": "dealby-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
