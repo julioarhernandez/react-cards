@@ -1,18 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Deals from "./components/Deals";
+import DealsDetails from "./components/DealsDetails";
 import Login from "./components/login";
+import Business from "./components/Business";
+
+import './stylesheets/main.scss';
 
 ReactDOM.render(
     <Router>
-      <div>
-        <Route exact path='/' component={App} />
+      <React.Fragment>
+        <Route exact path='/' component={Deals} />
+        <Route exact path='/deals' component={Deals} />
+        <Route exact path='/deal/:id' component={DealsDetails} />
         <Route exact path='/login' component={Login} />
-      </div>
+        <Route exact path='/business' component={Business} />
+      </React.Fragment>
   </Router>, 
     document.getElementById('root'));
 

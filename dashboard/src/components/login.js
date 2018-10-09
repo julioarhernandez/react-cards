@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from './AuthService';
-
-import './login.scss';
+import logo from './images/dealby-logo.svg';
 
 class Login extends Component {
     constructor(){
@@ -21,9 +20,11 @@ class Login extends Component {
     }
     render() {
         return (
-            <div className="center">
-                <div className="card">
-                    <h1>dealBy login</h1>
+            <div className="login -center">
+                <div className="login-card">
+                    <div className="login-logo">
+                        <img src={logo} alt="Dealby logo" />
+                    </div>
                     <form onSubmit={this.handleFormSubmit}>
                         <div className="form-group">
                         <label htmlFor="username">Email</label>

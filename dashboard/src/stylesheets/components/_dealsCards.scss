@@ -1,0 +1,22 @@
+.DealsCards {
+    margin-top: rem(15px);
+    &-item {
+        margin-bottom: rem(15px);
+    }
+    &-header,
+    &-body,
+    &-aside {
+        margin-bottom: rem(15px);
+    }
+    &-body,
+    &-aside {
+        padding:  0 rem(15px);
+    }
+    &-title,
+    &-description{
+        margin-bottom: rem(15px);
+        .material-icons{
+            margin-right: rem(10px);
+        }
+    }
+}
