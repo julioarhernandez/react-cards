@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var rateLimit = require("express-rate-limit");
 
 dotenv.config();
 
@@ -28,7 +29,17 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Rate limit configuration
+const limiter = rateLimit({
+  // windowMs: 15 * 60 * 1000, // 15 minutes 
+  windowMs: 1 * 60 * 1000, // 1 minutes block user ip
+  max: 2, // limit each IP to 100 requests per windowMs
+  message: "Sorry, the maximum limit of logins has been reached!"
+  
+});
+
 app.use('/api/cards', routes);
+app.use("/api/cards", limiter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

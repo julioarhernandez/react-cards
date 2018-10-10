@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var CardSchema = new mongoose.Schema({
   beInstalledDate: { type: Date, default: Date.now },
+  userId: String,
   bizId: Number,
   bizName: String,
   bizLogo: String,

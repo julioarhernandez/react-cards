@@ -8,7 +8,10 @@ var Cards = require('../models/Model');
 var User = require('../models/UserModel');
 var Beacon = require('../models/BeaconModel');
 var Venue = require('../models/VenueModel');
+var upload = require('../helpers/file-upload');
 const ObjectId = require("mongodb").ObjectID;
+
+const singleUpload = upload.single('image');
 
 /* GET ALL CardsS */
 router.get('/', auth.securedToken, function(req, res, next) {
@@ -47,6 +50,15 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
+router.post('/upload/', function(req, res){
+  singleUpload(req, res, function(err, some) {
+    if (err) {
+      return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
+    }
+
+    return res.json({'imageUrl': req.file.location});
+  });
+});
 
 /* GET single card BY ID */
 router.get('/getcard/:cardId', function(req, res, next) {
@@ -102,41 +114,6 @@ router.post('/login', function(req, res) {
       res.sendStatus(403);
     }
   });
-  // if ( auth.isUserAuthenticated(req) ){
-  //   console.log('its authtenticate');
-    
-  //   const user = { 
-  //     name: process.env.USERNAME 
-  //   };
-  //   const token = jwt.sign({user}, auth.getSecureKey(), {expiresIn: "1h"});
-  //   res.json( {token : token } );
-  // }else{
-  //   res.sendStatus(403);
-  // }
-//   User.findOne({ email: req.body.username}, function (err, user) {
-//     if (err) return false;
-
-//     if(!user){
-//       res.sendStatus(403);
-//     }
-//     else
-//     {
-//         user.comparePassword( req.body.password, function(err, isMatch) {
-//             if(isMatch && !err){
-//               const payload={
-//                 email: user.email,
-//                 type: user.type,
-//                 status: user.status
-//               };
-//               const token = jwt.sign({payload}, auth.getSecureKey(), {expiresIn: "24h"});
-//               res.json( {token : token } );
-//             }else{
-//               res.sendStatus(403);
-//             }
-//         });
-//     }
-// });
-
 });
 
 
