@@ -6,7 +6,7 @@ class DealsCards extends Component {
   render() {
     return(
       <div className="DealsCards">
-        <div className="container">
+        <div className="container -flex-wrap">
             <div className="DealsCards-item -border-blue-light">
                 <div className="DealsCards-header">
                     <div className="DealsCards-image">
@@ -24,7 +24,7 @@ class DealsCards extends Component {
                     </div>
                 </div>
                 <div className="DealsCards-aside">
-                    <Link to="/deal/12313123123" className="btn btn-blue -inline">
+                    <Link to="/deal/12313123123" className="btn btn-blue -block">
                         Edit Deal
                     </Link>
                 </div>
@@ -46,7 +46,7 @@ class DealsCards extends Component {
                     </div>
                 </div>
                 <div className="DealsCards-aside">
-                    <Link to="/deal/12313123123" className="btn btn-blue -inline">
+                    <Link to="/deal/12313123123" className="btn btn-blue -block">
                         Edit Deal
                     </Link>
                 </div>
@@ -68,7 +68,7 @@ class DealsCards extends Component {
                     </div>
                 </div>
                 <div className="DealsCards-aside">
-                    <Link to="/deal/12313123123" className="btn btn-blue -inline">
+                    <Link to="/deal/12313123123" className="btn btn-blue -block">
                         Edit Deal
                     </Link>
                 </div>

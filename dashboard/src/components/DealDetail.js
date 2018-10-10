@@ -24,7 +24,7 @@ class DealDetail extends Component {
   render() {
     return(
       <div className="DealsCards">
-        <div className="container">
+        <div className="container -flex-wrap">
             <div className="DealsCards-item -border-blue-light">
                 <div className="DealsCards-header">
                     <div className="DealsCards-image">
@@ -42,7 +42,7 @@ class DealDetail extends Component {
                     </div>
                 </div>
                 <div className="DealsCards-aside">
-                    <Link to="/deals/12313123123" className="btn btn-blue -inline">
+                    <Link to="/deals/12313123123" className="btn btn-blue -block">
                         Save Changes
                     </Link>
                 </div>

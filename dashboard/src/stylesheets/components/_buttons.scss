@@ -14,5 +14,9 @@
     &.-inline{
         display: inline-block;
     }
+    &.-block{
+        display: block;
+        text-align: center;
+    }
 
 }

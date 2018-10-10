@@ -1,7 +1,8 @@
 .DealsCards {
     margin-top: rem(15px);
     &-item {
-        margin-bottom: rem(15px);
+        max-width: rem(375px);
+        margin: rem(10px) rem(10px) rem(15px);
     }
     &-header,
     &-body,
