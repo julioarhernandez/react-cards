@@ -55,7 +55,8 @@ router.post('/upload/', function(req, res){
     if (err) {
       return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
     }
-
+    // TODO: wait for s3 lambda function to give you a 
+    // callback with the new thumbanil url
     return res.json({'imageUrl': req.file.location});
   });
 });
