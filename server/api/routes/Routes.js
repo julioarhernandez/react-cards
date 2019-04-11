@@ -8,10 +8,10 @@ var Cards = require('../models/Model');
 var User = require('../models/UserModel');
 var Beacon = require('../models/BeaconModel');
 var Venue = require('../models/VenueModel');
+var multer = require('multer');
 var upload = require('../helpers/file-upload');
 const ObjectId = require("mongodb").ObjectID;
 
-const singleUpload = upload.single('image');
 
 /* GET ALL CardsS */
 router.get('/', auth.securedToken, function(req, res, next) {
@@ -50,15 +50,97 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-router.post('/upload/', function(req, res){
-  singleUpload(req, res, function(err, some) {
-    if (err) {
-      return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
-    }
-    // TODO: wait for s3 lambda function to give you a 
-    // callback with the new thumbanil url
-    return res.json({'imageUrl': req.file.location});
+router.post('/upload/', auth.securedToken, upload.single('image'), function(req, res, next){
+// router.post('/upload/', function(req, res, next){
+  // jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+  //   if (err){
+  //     res.json({ok: 'not'});;
+  //   }else{  
+      // res.json({ok: req});
+      console.log(req.file.location);
+  //   }
+  // });
+  // jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+  //   if (err){
+  //     res.sendStatus(403);
+  //   }else{  
+  //     res.sendStatus(200);
+  //     singleUpload(req, res, function(err, some) {
+  //       if (err) {
+  //         return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
+  //       }
+  //       // TODO: wait for s3 lambda function to give you a 
+  //       // callback with the new thumbanil url
+  //       var jpgfile, filename;
+  //       if (req.file){
+  //         filename = req.file.location;
+  //         jpgfile = filename.substring(filename.lastIndexOf('/')+1);
+  //       }else{
+  //         jpgfile = '';
+  //       }
+    
+  //       // let cardId = '5a526769d0ddab4bcdcc1557';
+  //       // let bizId = '5a55afacfd471c3ba118bb08';
+  //       let cardId = req.body.cardId;
+  //       let bizId = req.body.bizId;
+  //       let title = req.body.title;
+  //       let description = req.body.description;
+    
+  //       console.log("card " + cardId + " biz " + bizId);
+        
+    
+  //       // if( jpgfile ){
+  //       //   // Update the card
+  //       //   Cards.update({
+  //       //     _id:ObjectId(bizId), 
+  //       //     "cards._id":ObjectId(cardId)}, 
+  //       //     {
+  //       //       $set:
+  //       //       {
+  //       //        "cards.$.cardImgSrc": 'https://s3.amazonaws.com/dealbyimage/thumbnails/' + jpgfile, 
+  //       //        "cards.$.cardTitle":  title,
+  //       //        "cards.$.cardContent":  description
+  //       //       }}, 
+  //       //         function (err, post) {
+  //       //          if (err){
+  //       //           return res.status(400).send('Error');
+  //       //          }
+  //       //          else{
+  //       //           return res.status(200).send('Success');
+  //       //          }
+  //       //   });
+  //       // }
+  //       // else{
+  //       //   // Update the card
+  //       //   Cards.update({
+  //       //     _id:ObjectId(bizId), 
+  //       //     "cards._id":ObjectId(cardId)}, 
+  //       //     {
+  //       //       $set:
+  //       //       {
+  //       //        "cards.$.cardTitle":  title,
+  //       //        "cards.$.cardContent":  description
+  //       //       }}, 
+  //       //         function (err, post) {
+  //       //           if (err){
+  //       //             return res.status(400).send('Error');
+  //       //            }
+  //       //            else{
+  //       //             return res.status(200).send('Success');
+  //       //            }
+  //       //   });
+  //       // }
+        
+  //       // return res.json({'imageUrl': jpgfile, 'title': req.body.title, 'description': req.body.description});
+  //     });
+  //   }
+  // // return res.json( {total : "ok" } );
+  // // res.sendStatus(200);
   });
+
+router.post('/ups/', function(req, res, next){
+  console.log(req);
+  
 });
 
 /* GET single card BY ID */
@@ -101,7 +183,7 @@ router.get('/getcard/:cardId', function(req, res, next) {
 });
 
 // Authentication post page 
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res, next) {
   auth.isUserAuthenticated(req, function(err, user){
     if(user && !err){
       const payload={

@@ -25,7 +25,9 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 //Enable corss
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Request-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Authorization, Access-Control-Allow-Origin, Access-Control-Request-Origin, Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -55,8 +57,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.status(err.status || 500).json({err: err.message});
 });
 
 var port = process.env.PORT || 3001;  

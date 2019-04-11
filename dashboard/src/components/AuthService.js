@@ -80,11 +80,10 @@ export default class AuthService {
         // Setting Authorization header
         // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
         if (this.loggedIn()) {
-            
             headers = {
                 'Access-Control-Allow-Origin':'*',
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                // 'Content-Type': 'multipart/form-data',
                 'Authorization' : 'Bearer ' + this.getToken()
             }
             // var head =  {headers, ...options};
@@ -96,7 +95,6 @@ export default class AuthService {
             }
         }
 
-        // console.log(headers);
         return fetch(url, {
             headers,
             ...options
