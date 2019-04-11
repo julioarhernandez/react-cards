@@ -12,6 +12,12 @@ export default class AuthService {
         // Get a token from api server using the fetch api
         return this.fetch(`${this.domain}/login`, {
             method: 'POST',
+            mode: 'cors',
+            headers:{
+                'Access-Control-Allow-Origin':'*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 username,
                 password
@@ -65,23 +71,46 @@ export default class AuthService {
 
     fetch(url, options) {
         // performs api calls sending the required authentication headers
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+        // const headers = {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        // }
+        var headers;
 
         // Setting Authorization header
         // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
         if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken()
+            
+            headers = {
+                'Access-Control-Allow-Origin':'*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' + this.getToken()
+            }
+            // var head =  {headers, ...options};
+            // console.log('sending auth', head);
+        }else{
+            headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         }
 
+        // console.log(headers);
         return fetch(url, {
             headers,
             ...options
         })
             .then(this._checkStatus)
-            .then(response => response.json())
+            .then(response => { 
+                try {
+                    // JSON.parse(response);
+                    return response.json();
+                } catch (error) {
+                    return response;
+                }
+            });
+            
     }
 
     _checkStatus(response) {
@@ -91,7 +120,7 @@ export default class AuthService {
         } else {
             var error = new Error(response.statusText)
             error.response = response
-            throw error
+            return response;
         }
     }
 }
