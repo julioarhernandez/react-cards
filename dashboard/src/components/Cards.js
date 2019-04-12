@@ -10,7 +10,7 @@ import BusinessInfo from "./BusinessInfo";
 import withAuth from './withAuth';
 // const Auth = new AuthService();
 
-class Business extends Component {
+class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,4 +41,4 @@ class Business extends Component {
   }
 }
 
-export default withAuth(Business);
+export default withAuth(Cards);

@@ -12,8 +12,8 @@ class DealDetail extends Component {
             title: '',
             description: '',
             image: '',
-            cardId: '',
-            bizId: ''
+            cardId: '5a526749d0ddab4bcdcc1556',
+            bizId: '790331'
           };
         this.Auth = new AuthService();
         this.handleChange = this.handleChange.bind(this);
@@ -46,7 +46,7 @@ class DealDetail extends Component {
         formData.append('description', this.state.description);
         formData.append('cardId', this.state.cardId);
         formData.append('bizId', this.state.bizId);
-        formData.append('image', this.state.image, this.state.image.name);
+        formData.append('image', this.state.image);
         this.Auth.fetch('http://localhost:3001/api/cards/upload/',{
             method: 'POST',
             mode: 'cors',
