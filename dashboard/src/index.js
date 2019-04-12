@@ -20,7 +20,7 @@ ReactDOM.render(
         <Route exact path='/deal/:id' component={DealsDetails} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/business' component={Business} />
-        <Route exact path='/cards/:id' component={Cards} />
+        <Route exact path='/getbizcards/:id' component={Cards} />
       </React.Fragment>
   </Router>, 
     document.getElementById('root'));

@@ -14,14 +14,14 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bizs: []
+      cards: []
     };
   }
   
   componentDidMount() {
-    axios.get( `${baseUrl}/api/cards/bizs/${this.props.user.payload.userid}`)
+    axios.get( `${baseUrl}/api/cards/getbizcards/${this.props.id}`)
       .then(res => {
-        this.setState({ bizs: res.data });
+        this.setState({ cards: res.data });
       });
   }
 
@@ -29,10 +29,10 @@ class Cards extends Component {
     return(
       <React.Fragment>
         <Header />
-        <Mainlink activeClass="business"/>
-        {this.state.bizs.map( biz => 
+        <Mainlink activeClass="deals"/>
+        {this.state.cards.map( card => 
           <React.Fragment>
-            <BusinessInfo {...biz} />
+            <CardInfo {...card} />
           </React.Fragment>
         )}
 

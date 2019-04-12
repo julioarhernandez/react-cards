@@ -39,7 +39,12 @@ router.get('/getbizcards/:bizId', function(req, res, next) {
     // if (err){
     //   res.sendStatus(403);
     // }else{
-      Cards.findById(req.params.bizId,function (err, products) {
+      Cards.findById(req.params.bizId,
+      {
+          bizId: 1,
+          cards: 1
+      },
+      function (err, products) {
         if (err) return next(err);
         res.json(products);
       });
@@ -360,109 +365,108 @@ router.post('/venue/',  auth.securedToken, function(req, res, next) {
 
  /* create biz with cards */
  router.post('/', auth.securedToken, function(req, res, next) {
-  
-  jwt.verify(req.token, auth.getSecureKey(), function(err, data){
-    if (err){
-      res.sendStatus(403);
-    }else{
-      // Create random biz id
-      var randomId = new random(random.engines.mt19937().autoSeed());
-      var bizRandom = randomId.integer(100000, 999999);
-      var objectToInsert = {
-        bizName: "BizName",
-        bizId: bizRandom,
-        bizWeb: "",
-        bizPhone: "",
-        bizLogo: "http://img-src",
-        bizPosition: 1,
-        bizAddress: {
-          country: "US",
-          state: "FL",
-          street: "",
-          zip: "",
-          county: "Miami"
-        },
-        bizLocation: {
-          type: "Point", 
-          coordinates: [-80.387772, 25.747206]
-        },
-        veName: "Venue-Name(Mall-name)",
-        veSlug: "ve1",
-        veLocation: {
-          type: "Polygon", 
-          coordinates: [[
-              [-80.387772, 25.747206],
-              [-80.387772, 25.747206],
-              [-80.387772, 25.747206],
-              [-80.387772, 25.747206],
-              [-80.387772, 25.747206]
-          ]]
-        },
-        cards: [
-          {
-            cardTitle: "",
-            cardContent: "",
-            cardImgSrc: "",
-            cardExpiration: "",
-            cardCoupon: "",
-            cardPosition: 1,
-            cardLink: "",
-            cardBundle: "1",
-            cardType: "1"
-          },
-          {
-            cardTitle: "",
-            cardContent: "",
-            cardImgSrc: "",
-            cardExpiration: "",
-            cardCoupon: "",
-            cardPosition: 2,
-            cardLink: "",
-            cardBundle: "1",
-            cardType: "1"
-          },
-          {
-            cardTitle: "",
-            cardContent: "",
-            cardImgSrc: "",
-            cardExpiration: "",
-            cardCoupon: "",
-            cardPosition: 3,
-            cardLink: "",
-            cardBundle: "1",
-            cardType: "1"
-          },
-          {
-            cardTitle: "",
-            cardContent: "",
-            cardImgSrc: "",
-            cardExpiration: "",
-            cardCoupon: "",
-            cardPosition: 4,
-            cardLink: "",
-            cardBundle: "1",
-            cardType: "1"
-          },
-          {
-            cardTitle: "",
-            cardContent: "",
-            cardImgSrc: "",
-            cardExpiration: "",
-            cardCoupon: "",
-            cardPosition: 5,
-            cardLink: "",
-            cardBundle: "1",
-            cardType: "1"
-          }
-        ]
-      };
-      // Insert into db
-      Cards.create(objectToInsert, function (err, post) {
-        if (err) return next(err);
-        res.sendStatus(200);
-      });
-    }
-  });
+    jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+        if (err){
+        res.sendStatus(403);
+        }else{
+        // Create random biz id
+        var randomId = new random(random.engines.mt19937().autoSeed());
+        var bizRandom = randomId.integer(100000, 999999);
+        var objectToInsert = {
+            bizName: "BizName",
+            bizId: bizRandom,
+            bizWeb: "",
+            bizPhone: "",
+            bizLogo: "http://img-src",
+            bizPosition: 1,
+            bizAddress: {
+            country: "US",
+            state: "FL",
+            street: "",
+            zip: "",
+            county: "Miami"
+            },
+            bizLocation: {
+            type: "Point", 
+            coordinates: [-80.387772, 25.747206]
+            },
+            veName: "Venue-Name(Mall-name)",
+            veSlug: "ve1",
+            veLocation: {
+            type: "Polygon", 
+            coordinates: [[
+                [-80.387772, 25.747206],
+                [-80.387772, 25.747206],
+                [-80.387772, 25.747206],
+                [-80.387772, 25.747206],
+                [-80.387772, 25.747206]
+            ]]
+            },
+            cards: [
+            {
+                cardTitle: "",
+                cardContent: "",
+                cardImgSrc: "",
+                cardExpiration: "",
+                cardCoupon: "",
+                cardPosition: 1,
+                cardLink: "",
+                cardBundle: "1",
+                cardType: "1"
+            },
+            {
+                cardTitle: "",
+                cardContent: "",
+                cardImgSrc: "",
+                cardExpiration: "",
+                cardCoupon: "",
+                cardPosition: 2,
+                cardLink: "",
+                cardBundle: "1",
+                cardType: "1"
+            },
+            {
+                cardTitle: "",
+                cardContent: "",
+                cardImgSrc: "",
+                cardExpiration: "",
+                cardCoupon: "",
+                cardPosition: 3,
+                cardLink: "",
+                cardBundle: "1",
+                cardType: "1"
+            },
+            {
+                cardTitle: "",
+                cardContent: "",
+                cardImgSrc: "",
+                cardExpiration: "",
+                cardCoupon: "",
+                cardPosition: 4,
+                cardLink: "",
+                cardBundle: "1",
+                cardType: "1"
+            },
+            {
+                cardTitle: "",
+                cardContent: "",
+                cardImgSrc: "",
+                cardExpiration: "",
+                cardCoupon: "",
+                cardPosition: 5,
+                cardLink: "",
+                cardBundle: "1",
+                cardType: "1"
+            }
+            ]
+        };
+        // Insert into db
+        Cards.create(objectToInsert, function (err, post) {
+            if (err) return next(err);
+            res.sendStatus(200);
+        });
+        }
+    });
 });
 
 /* Get all biz in a venue from venueSlug  */
@@ -503,7 +507,7 @@ router.get('/venues/:venueSlug', function(req, res, next) {
           });
 });
 
-/* Get biz from userID  */
+/* Get biz info from logged userID  */
 router.get('/bizs/:userId', function(req, res, next) {
   Cards.find({
       userId: req.params.id
@@ -514,11 +518,10 @@ router.get('/bizs/:userId', function(req, res, next) {
         veName: 1,
         bizAddress: 1 
     }, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
+        if (err) return next(err);
+        res.json(post);
   });
 });
-
 
 /* UPDATE biz, beacon, venue*/
 router.put('/:id', auth.securedToken, function(req, res, next) {
