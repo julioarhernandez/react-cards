@@ -8,7 +8,7 @@ import Deals from "./components/Deals";
 import DealsDetails from "./components/DealsDetails";
 import Login from "./components/login";
 import Business from "./components/Business";
-import Cards from "./components/Cards";
+import CardsInfo from "./components/CardsInfo";
 
 import './stylesheets/main.scss';
 
@@ -17,10 +17,10 @@ ReactDOM.render(
       <React.Fragment>
         <Route exact path='/' component={Deals} />
         <Route exact path='/deals' component={Deals} />
-        <Route exact path='/deal/:id' component={DealsDetails} />
+        <Route exact path='/deal/:bid/:cid' component={DealsDetails} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/business' component={Business} />
-        <Route exact path='/getbizcards/:id' component={Cards} />
+        <Route exact path='/getcards/:id' component={CardsInfo} />
       </React.Fragment>
   </Router>, 
     document.getElementById('root'));

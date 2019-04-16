@@ -3,15 +3,9 @@ import Header from "./Header";
 import Mainlink from "./Mainlink";
 import DealDetail from "./DealDetail";
 
-import AuthService from './AuthService';
 import withAuth from './withAuth';
-const Auth = new AuthService();
 
 class DealsDetails extends Component {
-  handleLogout(){
-    Auth.logout()
-    this.props.history.replace('/login');
- }
  componentDidMount(){
      console.log();
  }
@@ -20,7 +14,7 @@ class DealsDetails extends Component {
       <React.Fragment>
         <Header />
         <Mainlink activeClass="deals"/>
-        <DealDetail dealId={this.props.match.params.id}/>
+        <DealDetail cardId={this.props.match.params.cid} bizId={this.props.match.params.bid}/>
       </React.Fragment>
     //   <div className="Deals">
     //       {/* <div className="Deals-header">

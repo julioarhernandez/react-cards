@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 // import axios from 'axios';
 import { Link } from "react-router-dom";
 import imageSrc from "./images/emptyImage.png";
+import baseUrl from "../helpers/urlHelpers";
 import withAuth from './withAuth';
 import AuthService from './AuthService';
 
 class DealDetail extends Component {
     constructor(){
         super();
+        this.cardId= '';
+        this.bizId= '';
         this.state = {
             title: '',
             description: '',
-            image: '',
-            cardId: '5a526749d0ddab4bcdcc1556',
-            bizId: '790331'
+            image: ''
           };
         this.Auth = new AuthService();
         this.handleChange = this.handleChange.bind(this);
@@ -44,8 +45,8 @@ class DealDetail extends Component {
         const formData = new FormData();
         formData.append('title', this.state.title);
         formData.append('description', this.state.description);
-        formData.append('cardId', this.state.cardId);
-        formData.append('bizId', this.state.bizId);
+        formData.append('cardId', this.cardId);
+        formData.append('bizId', this.bizId);
         formData.append('image', this.state.image);
         this.Auth.fetch('http://localhost:3001/api/cards/upload/',{
             method: 'POST',
@@ -59,9 +60,17 @@ class DealDetail extends Component {
     
 
     componentDidMount () {
-        const handle = this.props.dealId;
-        console.log(handle);
-        
+        this.cardId = this.props.cardId;
+        this.Auth.fetch(`${baseUrl}/api/cards/getcard/${this.cardId}`,{
+            method: 'GET'
+        }).then(response => {
+            this.setState({ 
+                title: response[0].cards.cardTitle,  
+                description: response[0].cards.cardContent,  
+                image: response[0].cards.cardImgSrc
+            });
+            // console.log(response[0].cards);
+        });
 
         // fetch(`https://api.twitter.com/user/${handle}`)
         //     .then((user) => {
@@ -77,7 +86,7 @@ class DealDetail extends Component {
                     <div className="DealsCards-header">
                         <div className="DealsCards-image">
                             <figure>
-                                <img src={imageSrc} alt=""/>
+                                <img src={this.state.image} alt=""/>
                             </figure>
                             <input type="file" name="image" id="image" onChange={this.handleFileChange}/>
                         </div>
@@ -85,11 +94,11 @@ class DealDetail extends Component {
                     <div className="DealsCards-body">
                         <div className="DealsCards-title">
                         <input type="text" name="title" id="title" onChange={this.handleChange}/>
-                            <h1>Title of the deal you are displaying in the real cards</h1>
+                            <h1>{this.state.title}</h1>
                         </div>
                         <div className="DealsCards-description">
                         <textarea rows="2" cols="" name="description" id="description" onChange={this.handleChange}></textarea>
-                            <h2>Description of the deal you are displaying in the real cards wityh ellipsis at the end</h2>
+                            <h2>{this.state.description}</h2>
                         </div>
                     </div>
                     <div className="DealsCards-aside">
@@ -105,4 +114,4 @@ class DealDetail extends Component {
   }
 }
 
-export default withAuth(DealDetail);
+export default DealDetail;
