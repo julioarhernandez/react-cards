@@ -13,7 +13,7 @@ class DealsDetails extends Component {
     return(
       <React.Fragment>
         <Header />
-        <Mainlink activeClass="deals"/>
+        <Mainlink activeClass="deals" role={this.props.user.payload.type}/>
         <DealDetail cardId={this.props.match.params.cid} bizId={this.props.match.params.bid}/>
       </React.Fragment>
     //   <div className="Deals">

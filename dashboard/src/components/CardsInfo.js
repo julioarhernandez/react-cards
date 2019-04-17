@@ -31,7 +31,7 @@ class CardsInfo extends Component {
     return(
       <React.Fragment>
         <Header />
-        <Mainlink activeClass="deals"/>
+        <Mainlink activeClass="deals" role={this.props.user.payload.type}/>
         {this.state.cards[0] && this.state.cards[0].cards.map( card => 
           <React.Fragment>
             <CardInfo cards={card} id={this.state.cards[0]._id}/>
