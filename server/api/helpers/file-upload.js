@@ -22,7 +22,8 @@ const upload = multer({
         if (file){
           let ext = file.originalname.split('.');
           let randomFileName = randomString.generate(7);
-          ext = Array.isArray(ext) ? ext[ext.length - 1] : 'jpg';
+          // ext = Array.isArray(ext) ? ext[ext.length - 1] : 'jpg';
+          ext = 'jpg';
           let newFilename = randomFileName + '.' + ext;
           cb(null, newFilename);
       }
@@ -30,5 +31,4 @@ const upload = multer({
     })
   });
   
-// const upload = multer({ dest: 'uploads/' });
   module.exports = upload;

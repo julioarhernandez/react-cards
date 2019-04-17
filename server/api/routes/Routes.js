@@ -39,7 +39,10 @@ router.get('/getbizcards/:bizId', function(req, res, next) {
     // if (err){
     //   res.sendStatus(403);
     // }else{
-      Cards.findById(req.params.bizId,
+      bizId = new ObjectId(req.params.bizId);
+      Cards.find({
+        _id: bizId
+      },
       {
           bizId: 1,
           cards: 1
@@ -53,7 +56,7 @@ router.get('/getbizcards/:bizId', function(req, res, next) {
 });
 
 /* GET single card BY CARD ID */
-router.get('/getcard/:cardId', function(req, res, next) {
+router.get('/getcard/:cardId', auth.securedToken, function(req, res, next) {
   cardId = new ObjectId(req.params.cardId);
   Cards.aggregate([
     {$unwind: "$cards" },

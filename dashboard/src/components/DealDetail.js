@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import axios from 'axios';
 import { Link } from "react-router-dom";
 import imageSrc from "./images/emptyImage.png";
+import bizBackground from "./images/bizbackground.jpg";
 import baseUrl from "../helpers/urlHelpers";
 import withAuth from './withAuth';
 import AuthService from './AuthService';
@@ -12,6 +13,8 @@ class DealDetail extends Component {
         this.cardId= '';
         this.bizId= '';
         this.state = {
+            showAlerts: false,
+            srcImage: '',
             title: '',
             description: '',
             image: ''
@@ -29,16 +32,26 @@ class DealDetail extends Component {
     handleChange(e){
         this.setState(
             {
+                showAlerts: false,
                 [e.target.name]: e.target.value
             }
         )
     }
     handleFileChange(e){
-        this.setState(
-            {
-                image: e.target.files[0]
-            }
-        )
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                showAlerts: false,
+                image: file,
+                srcImage: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
     }
     handleFormSubmit(e){
         e.preventDefault();
@@ -53,14 +66,24 @@ class DealDetail extends Component {
             mode: 'cors',
             body: formData
         }).then(response => {
-            console.log(response);
+            if (response.status === 'Success'){
+                this.setState({ 
+                    showAlerts: true,
+                    message: 'Changes saved sucessfully!'
+                });
+            }else {
+                this.setState({ 
+                    showAlerts: true,
+                    message: 'Error. Please try again!'
+                });
+            }
         });
-        // axios.post('http://localhost:3001/api/cards/upload/', formData)
     }
     
 
     componentDidMount () {
         this.cardId = this.props.cardId;
+        this.bizId = this.props.bizId;
         this.Auth.fetch(`${baseUrl}/api/cards/getcard/${this.cardId}`,{
             method: 'GET'
         }).then(response => {
@@ -69,15 +92,19 @@ class DealDetail extends Component {
                 description: response[0].cards.cardContent,  
                 image: response[0].cards.cardImgSrc
             });
-            // console.log(response[0].cards);
         });
 
-        // fetch(`https://api.twitter.com/user/${handle}`)
-        //     .then((user) => {
-        //     this.setState(() => ({ user }))
-        //     })
-        }
+    }
   render() {
+
+    let {srcImage, image} = this.state;
+    let $imagePreview = null;
+    if (srcImage) {
+      $imagePreview = (<img src={srcImage} />);
+    } else {
+      $imagePreview = (<img src={image} />);
+    }
+
     return(
       <div className="DealsCards">
         <div className="container -flex-wrap">
@@ -86,27 +113,30 @@ class DealDetail extends Component {
                     <div className="DealsCards-header">
                         <div className="DealsCards-image">
                             <figure>
-                                <img src={this.state.image} alt=""/>
+                                {$imagePreview}
                             </figure>
                             <input type="file" name="image" id="image" onChange={this.handleFileChange}/>
                         </div>
                     </div>
                     <div className="DealsCards-body">
                         <div className="DealsCards-title">
-                        <input type="text" name="title" id="title" onChange={this.handleChange}/>
-                            <h1>{this.state.title}</h1>
+                        <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
+                            {/* <h1>{this.state.title}</h1> */}
                         </div>
                         <div className="DealsCards-description">
-                        <textarea rows="2" cols="" name="description" id="description" onChange={this.handleChange}></textarea>
-                            <h2>{this.state.description}</h2>
+                        <textarea rows="4" value={this.state.description} name="description" id="description" onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="DealsCards-aside">
-                        <Link to="/deals/12313123123" className="btn btn-blue -block" onClick={this.handleFormSubmit}>
+                        <Link to="#" className="btn btn-blue -block" onClick={this.handleFormSubmit}>
                             Save Changes
                         </Link>
                     </div>
                 </form>
+                {this.state.showAlerts && 
+                <div className="alert">
+                {this.state.message}
+                </div>}
             </div>
         </div>
       </div>
