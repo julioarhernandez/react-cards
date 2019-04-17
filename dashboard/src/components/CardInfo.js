@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class CardInfo extends Component {
   render() {
-    const {cardImgSrc, ...others} = this.props.cards;
+    const {cardImgSrc, cardTitle, cardContent, ...others} = this.props.cards;
     console.log(this.props.cards);
     const bizId = this.props.id;
     return(
@@ -13,16 +13,16 @@ class CardInfo extends Component {
                     <div className="DealsCards-header">
                         <div className="DealsCards-image">
                             <figure>
-                                <img src={this.props.cards.cardImgSrc} alt="Deal"/>
+                                <img src={cardImgSrc} alt="Deal"/>
                             </figure>
                         </div>
                     </div>
                     <div className="DealsCards-body">
                         <div className="DealsCards-title">
-                            <h1>{this.props.cards.cardTitle}</h1>
+                            <h1>{cardTitle}</h1>
                         </div>
                         <div className="DealsCards-description">
-                            <h2>Description of the deal you are displaying in the real cards wityh ellipsis at the end</h2>
+                            <div className="h2" dangerouslySetInnerHTML={{ __html: cardContent }}></div>
                         </div>
                     </div>
                     <div className="DealsCards-aside">
