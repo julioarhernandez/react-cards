@@ -100,9 +100,9 @@ class DealDetail extends Component {
     let {srcImage, image} = this.state;
     let $imagePreview = null;
     if (srcImage) {
-      $imagePreview = (<img src={srcImage} />);
+      $imagePreview = (<img src={srcImage} alt="Deal"/>);
     } else {
-      $imagePreview = (<img src={image} />);
+      $imagePreview = (<img src={image} alt="Deal"/>);
     }
 
     return(
@@ -120,11 +120,13 @@ class DealDetail extends Component {
                     </div>
                     <div className="DealsCards-body">
                         <div className="DealsCards-title">
+                        <label htmlFor="title">Title</label>
                         <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
                             {/* <h1>{this.state.title}</h1> */}
                         </div>
                         <div className="DealsCards-description">
-                        <textarea rows="4" value={this.state.description} name="description" id="description" onChange={this.handleChange} />
+                        <label htmlFor="description">Deal description</label>
+                        <textarea rows="4" value={this.state.description} name="description" id="description" onChange={this.handleChange} className="p_wrap"/>
                         </div>
                     </div>
                     <div className="DealsCards-aside">

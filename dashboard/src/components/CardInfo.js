@@ -22,7 +22,7 @@ class CardInfo extends Component {
                             <h1>{cardTitle}</h1>
                         </div>
                         <div className="DealsCards-description">
-                            <div className="h2" dangerouslySetInnerHTML={{ __html: cardContent }}></div>
+                            <div className="h2 p_wrap" dangerouslySetInnerHTML={{ __html: cardContent }}></div>
                         </div>
                     </div>
                     <div className="DealsCards-aside">
