@@ -2,6 +2,7 @@
     margin-top: rem(15px);
     &-item {
         max-width: rem(375px);
+        min-width: rem(330px);
         margin: rem(10px) rem(10px) rem(15px);
     }
     &-header,
@@ -12,6 +13,11 @@
     &-body,
     &-aside {
         padding:  0 rem(15px);
+    }
+    &-image{
+        img{
+            width: 100%;
+        }
     }
     &-title,
     &-description{
