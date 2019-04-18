@@ -226,7 +226,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* create a venue */
-router.post('/venue/',  auth.securedToken, function(req, res, next) {
+router.post('/addvenue/',  auth.securedToken, function(req, res, next) {
   jwt.verify(req.token, auth.getSecureKey(), function(err, data){
     if (err){
       res.sendStatus(403);
@@ -240,15 +240,14 @@ router.post('/venue/',  auth.securedToken, function(req, res, next) {
                 veLocation: {
                     coordinates: [
                         [
-                          [-80.3908847,25.7482149],[-80.3908954,25.7482342],[-80.3908847,25.7482149]
+                           req.body.veCoordinates
                         ]
                     ], 
                     type: "Polygon"
                 }, 
                 vePointLocation: {
                     coordinates: [
-                        req.body.vePointLocationLatitude, 
-                        req.body.vePointLocationLongitude
+                        req.body.vePointLocation
                     ], 
                     type: "Point"
                 }, 
@@ -592,7 +591,7 @@ router.post('/adduser/', auth.securedToken, function(req, res, next) {
  * MAP ENDPOINT
  */
 
- /* Get venues info for map  markers*/
+ /* Get venues info for map markers*/
 router.post('/map/', function(req, res, next) {
   Venue.find({}, {vePointLocation: 1, veSlug: 1},function (err, post) {
           if (err) return next(err);
