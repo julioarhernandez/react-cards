@@ -30,7 +30,7 @@ class CardsInfo extends Component {
   render() {
     return(
       <React.Fragment>
-        <Header />
+        <Header {...this.props}/>
         <Mainlink activeClass="deals" role={this.props.user.payload.type}/>
         {this.state.cards[0] && this.state.cards[0].cards.map( card => 
           <React.Fragment>

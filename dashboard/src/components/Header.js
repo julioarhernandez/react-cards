@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import AuthService from './AuthService';
+
 import logo from './images/logo-white.svg';
+const Auth = new AuthService();
 
 class Header extends Component {
+    handleLogout = () => {
+        Auth.logout()
+        this.props.history.replace('/login');
+     }
   
   render() {
     return (
@@ -13,6 +20,7 @@ class Header extends Component {
         </div>
         <div className="header-links">
           <ul className="list -padding">
+            <li className="list-item"><a href="#" onClick={this.handleLogout}><span className="material-icons">clear</span></a></li>
             <li className="list-item"><a href="#"><span className="material-icons">account_box</span></a></li>
             <li className="list-item"><a href="#"><span className="material-icons">store</span></a></li>
             <li className="list-item"><a href="#"><span className="material-icons">room</span></a></li>

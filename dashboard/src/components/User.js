@@ -62,7 +62,7 @@ class User extends Component {
 
     return(
         <React.Fragment>
-        <Header />
+        <Header {...this.props}/>
         <Mainlink activeClass="users" role={this.props.user.payload.type}/>
         <div className="UserCard">
             <div className="container -flex-wrap">

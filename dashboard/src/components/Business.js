@@ -28,7 +28,7 @@ class Business extends Component {
   render() {
     return(
       <React.Fragment>
-        <Header />
+        <Header {...this.props}/>
         <Mainlink activeClass="business" role={this.props.user.payload.type}/>
         {this.state.bizs.map( biz => 
           <React.Fragment>

@@ -15,7 +15,7 @@ class Deals extends Component {
   render() {
     return(
       <React.Fragment>
-        <Header />
+        <Header {...this.props}/>
         <Mainlink activeClass="deals"/>
         <DealsCards />
       </React.Fragment>
