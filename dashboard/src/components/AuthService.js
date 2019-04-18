@@ -69,7 +69,7 @@ export default class AuthService {
     }
 
 
-    fetch(url, options) {
+    fetch(url, options, plain=true) {
         // performs api calls sending the required authentication headers
         // const headers = {
         //     'Accept': 'application/json',
@@ -80,12 +80,23 @@ export default class AuthService {
         // Setting Authorization header
         // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
         if (this.loggedIn()) {
-            headers = {
-                'Access-Control-Allow-Origin':'*',
-                'Accept': 'application/json',
-                // 'Content-Type': 'multipart/form-data',
-                'Authorization' : 'Bearer ' + this.getToken()
+            if (!plain){
+                headers = {
+                    'Access-Control-Allow-Origin':'*',
+                    'Accept': 'application/json',
+                    // 'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' + this.getToken()
+                }
+            }else{
+                headers = {
+                    'Access-Control-Allow-Origin':'*',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' + this.getToken()
+                }
             }
+            
+            
             // var head =  {headers, ...options};
             // console.log('sending auth', head);
         }else{

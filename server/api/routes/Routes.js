@@ -10,6 +10,7 @@ var Beacon = require('../models/BeaconModel');
 var Venue = require('../models/VenueModel');
 var multer = require('multer');
 var upload = require('../helpers/file-upload');
+var bcrypt = require('bcryptjs');
 const ObjectId = require("mongodb").ObjectID;
 
 
@@ -541,13 +542,13 @@ router.put('/:id', auth.securedToken, function(req, res, next) {
 });
 
 /**
- * AUTHENTICATION
+ * USERS AND AUTHENTICATION
  */
 
 // Authentication post page 
 router.post('/login', function(req, res, next) {
   auth.isUserAuthenticated(req, function(err, user){
-    if(user && !err){
+    if(user && !err){ 
       const payload={
         userid: user._id,
         email: user.email,
@@ -558,6 +559,30 @@ router.post('/login', function(req, res, next) {
       res.json( {token : token } );
     }else{
       res.sendStatus(403);
+    }
+  });
+});
+
+// Add new user 
+// router.post('/adduser/', function(req, res) {
+router.post('/adduser/', auth.securedToken, function(req, res, next) {
+  jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+      if (err){
+        res.sendStatus(403);
+      }else{
+        bcrypt.hash(req.body.password, 10, function (err,   hash) {
+          var objectToInsert = {
+            type: "biz",
+            status: "active",
+            password: hash,
+            email: req.body.email
+          };
+          // Insert into db
+          User.create(objectToInsert, function (err, post) {
+              if (err) return next(err);
+              res.status(200).send({status: 'Success'});
+          });
+        });
     }
   });
 });

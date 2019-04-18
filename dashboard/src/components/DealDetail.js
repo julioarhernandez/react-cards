@@ -65,7 +65,7 @@ class DealDetail extends Component {
             method: 'POST',
             mode: 'cors',
             body: formData
-        }).then(response => {
+        }, false).then(response => {
             if (response.status === 'Success'){
                 this.setState({ 
                     showAlerts: true,

@@ -9,6 +9,7 @@ import DealsDetails from "./components/DealsDetails";
 import Login from "./components/login";
 import Business from "./components/Business";
 import CardsInfo from "./components/CardsInfo";
+import User from "./components/User";
 
 import './stylesheets/main.scss';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route exact path='/deals' component={Deals} />
         <Route exact path='/deal/:bid/:cid' component={DealsDetails} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/users' component={User} />
         <Route exact path='/business' component={Business} />
         <Route exact path='/getcards/:id' component={CardsInfo} />
       </React.Fragment>
