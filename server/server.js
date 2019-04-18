@@ -35,13 +35,14 @@ app.use(function(req, res, next) {
 const limiter = rateLimit({
   // windowMs: 15 * 60 * 1000, // 15 minutes 
   windowMs: 1 * 60 * 1000, // 1 minutes block user ip
-  max: 2, // limit each IP to 100 requests per windowMs
-  message: "Sorry, the maximum limit of logins has been reached!"
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Sorry, the maximum limit of request has been reached!"
   
 });
 
-app.use('/api/cards', routes);
 app.use("/api/cards", limiter);
+app.use('/api/cards', routes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
