@@ -124,7 +124,7 @@ router.post('/upload/', auth.securedToken, upload.single('image'), function(req,
 
   // Update the card
   if (jpgfile){
-      // Update the card
+      // Update the card width image
       Cards.update({
           _id:ObjectId(bizId), 
           "cards._id":ObjectId(cardId)}, 
@@ -145,7 +145,7 @@ router.post('/upload/', auth.securedToken, upload.single('image'), function(req,
               });
   }
   else{
-      // Update the card
+      // Update the card without image
       Cards.update({
         _id:ObjectId(bizId), 
         "cards._id":ObjectId(cardId)}, 
@@ -231,38 +231,35 @@ router.post('/addvenue/',  auth.securedToken, function(req, res, next) {
     if (err){
       res.sendStatus(403);
     }else{
-            // Create random biz id
-            // var randomId = new random(random.engines.mt19937().autoSeed());
-            // var bizRandom = randomId.integer(100000, 999999);
-            var venueToInsert = {
-                veName: req.body.veName, 
-                veSlug: req.body.veSlug, 
-                veLocation: {
-                    coordinates: [
-                        [
-                           req.body.veCoordinates
-                        ]
-                    ], 
-                    type: "Polygon"
-                }, 
-                vePointLocation: {
-                    coordinates: [
-                        req.body.vePointLocation
-                    ], 
-                    type: "Point"
-                }, 
-                veAddress: {
-                    country: req.body.veAddressCountry , 
-                    state:  req.body.veAddressState, 
-                    street:  req.body.veAddressStreet, 
-                    zip:  req.body.veAddressZip, 
-                    county: req.body.veAddressCounty 
-                }
-            };
-            Venue.create(venueToInsert, function (err, post) {
-              if (err) return next(err);
-              res.sendStatus(200);
-            });
+        var venueToInsert = {
+            veName: req.body.veName, 
+            veSlug: req.body.veSlug, 
+            veLocation: {
+                coordinates: [
+                    [
+                        req.body.veCoordinates
+                    ]
+                ], 
+                type: "Polygon"
+            }, 
+            vePointLocation: {
+                coordinates: [
+                    req.body.vePointLocation
+                ], 
+                type: "Point"
+            }, 
+            veAddress: {
+                country: req.body.veAddressCountry , 
+                state:  req.body.veAddressState, 
+                street:  req.body.veAddressStreet, 
+                zip:  req.body.veAddressZip, 
+                county: req.body.veAddressCounty 
+            }
+        };
+        Venue.create(venueToInsert, function (err, post) {
+            if (err) return next(err);
+            res.sendStatus(200);
+        });
             // var objectToInsert = {
             //   bizName: "BizName",
             //   bizId: bizRandom,
@@ -470,6 +467,140 @@ router.post('/addvenue/',  auth.securedToken, function(req, res, next) {
         });
         }
     });
+});
+
+/* create biz with empty cards */
+// router.post('/addbiz', auth.securedToken, function(req, res, next) {
+router.post('/addbiz', function(req, res, next) {
+    // jwt.verify(req.token, auth.getSecureKey(), function(err, data){
+    //     if (err){
+    //     res.sendStatus(403);
+    //     }else{
+        // // Create random biz id
+        // What is this randomId for?
+        var randomId = new random(random.engines.mt19937().autoSeed());
+        var bizRandom = randomId.integer(100000, 999999);
+
+        // Get post params
+        let bizName = req.body.bizName;
+        let bizWeb = req.body.bizWeb;
+        let bizPhone = req.body.bizPhone;
+        let bizLogo = req.body.bizLogo;
+        let bizCountry = req.body.bizCountry || "US";
+        let bizState = req.body.bizState || "FL";
+        let bizStreet = req.body.bizStreet;
+        let bizZip = req.body.bizZip;
+        let bizCounty = req.body.bizCounty || "Miami";
+        let bizCoordinates = req.body.bizCoordinates;
+        let bizVenueName = req.body.bizVenueName;
+        let bizVenueSlug = req.body.bizVenueSlug;
+        let bizCardAmount = req.body.bizCardAmount || 1;
+
+        // Temporary card
+        let card = {
+            cardTitle: "",
+            cardContent: "",
+            cardImgSrc: "",
+            cardExpiration: "",
+            cardCoupon: "",
+            cardPosition: 0,
+            cardLink: "",
+            cardBundle: "1",
+            cardType: "1"
+        }
+
+        // Assign cards dynamically
+        let cards = [];
+        for( var i=1; i<= bizCardAmount; ++i){
+            let tempCard = Object.assign({}, card);
+            tempCard.cardPos = i;
+            cards.push(tempCard);
+        }
+
+        // prepare the object to insert
+        var objectToInsert = {
+            bizName: bizName,
+            bizId: bizRandom,
+            bizWeb: bizWeb,
+            bizPhone: bizPhone,
+            bizLogo: bizLogo,
+            bizPosition: 1,
+            bizAddress: {
+                country: bizCountry,
+                state: bizState,
+                street: bizStreet,
+                zip: bizZip,
+                county: bizCounty
+            },
+            bizLocation: {
+                type: "Point", 
+                coordinates: bizCoordinates
+            },
+            veName: bizVenueName,
+            veSlug: bizVenueSlug,
+            cards: cards
+        };
+
+        // // Insert into db
+        // Cards.create(objectToInsert, function (err, post) {
+        //     if (err) return next(err);
+        //     res.sendStatus(200);
+        // });
+
+        // retreive the form data
+        // let cardId = req.body.cardId;
+        // let bizId = req.body.bizId;
+        // let title = req.body.title;
+        // let description = req.body.description;
+        // let jpgfile = '' || (req.file && req.file.key);
+        // console.log(`${cardId} - ${bizId} -${title} -${description}`);
+        // res.json({ messege: req});
+        // res.json({ok: 'true'});
+
+        // Update the card
+        // if (jpgfile){
+        //     // Update the card width image
+        //     Cards.update({
+        //         _id:ObjectId(bizId), 
+        //         "cards._id":ObjectId(cardId)}, 
+        //             {
+        //                 $set:
+        //                     {
+        //                         "cards.$.cardImgSrc": 'https://s3.amazonaws.com/dealbyimage/thumbnails/' + jpgfile, 
+        //                         "cards.$.cardTitle":  title,
+        //                         "cards.$.cardContent":  description
+        //                     }
+        //             }, function (err, post) {
+        //                 if (err){
+        //                     return res.status(400).send({status: 'Error'});
+        //                 }
+        //                 else{
+        //                     return res.status(200).send({status: 'Success'});
+        //             }
+        //             });
+        // }
+        // else{
+        //     // Update the card without image
+        //     Cards.update({
+        //         _id:ObjectId(bizId), 
+        //         "cards._id":ObjectId(cardId)}, 
+        //         {
+        //         $set:
+        //         {
+        //         "cards.$.cardTitle":  title,
+        //         "cards.$.cardContent":  description
+        //         }}, 
+        //         function (err, post) {
+        //             if (err){
+        //                 return res.status(400).send({status: 'Error'});
+        //             }
+        //             else{
+        //                 return res.status(200).send({status: 'Success'});
+        //         }
+        //     });
+        // }
+        // }
+    // });
 });
 
 /* Get all biz in a venue from venueSlug  */
