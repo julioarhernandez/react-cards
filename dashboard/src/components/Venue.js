@@ -43,8 +43,15 @@ class Venue extends Component {
         this.Auth.fetch(`${baseUrl}/api/cards/addvenue/`,{
             method: 'POST',
             body: JSON.stringify({
-                email: this.state.email, 
-                password: this.state.password
+                veName: this.state.name, 
+                veSlug: this.state.slug,
+                veCoordinates: this.state.polygonLocation,
+                vePointLocation: this.state.pointLocation,
+                veAddressCountry: this.state.addressCountry,
+                veAddressState: this.state.addressState,
+                veAddressStreet: this.state.addressStreet,
+                veAddressZip: this.state.addressZip,
+                veAddressCounty: this.state.addressCounty
             })
         }).then(response => {
             if (response.status === 'Success'){
@@ -66,7 +73,7 @@ class Venue extends Component {
     return(
         <React.Fragment>
         <Header {...this.props}/>
-        <Mainlink activeClass="venue" role={this.props.user.payload.type}/>
+        <Mainlink activeClass="venue" role="{this.props.user.payload.type}"/>
         <div className="VenueCard">
             <div className="container -flex-wrap">
                 <div className="VenueCard-item">
@@ -74,19 +81,39 @@ class Venue extends Component {
                         <div className="VenueCard-body">
                             <div className="VenueCard-name">
                                 <label htmlFor="name">Name</label>
-                                <input type="text" name="name" id="name" onChange={this.handleChange} value={this.state.email}/>
+                                <input type="text" name="name" id="name" onChange={this.handleChange} value={this.state.name}/>
                             </div>
                             <div className="VenueCard-slug">
                                 <label htmlFor="slug">Venue Slug</label>
-                                <input type="text" name="slug" id="slug" onChange={this.handleChange} value={this.state.password}/>
+                                <input type="text" name="slug" id="slug" onChange={this.handleChange} value={this.state.slug}/>
                             </div>
                             <div className="VenueCard-pointLocation">
-                                <label htmlFor="point-Location">Point Location</label>
-                                <input type="text" name="point-Location" id="point-Location" onChange={this.handleChange} value={this.state.email} />
+                                <label htmlFor="pointLocation">Point Location</label>
+                                <input type="text" name="pointLocation" id="pointLocation" onChange={this.handleChange} value={this.state.pointLocation} />
                             </div>
                             <div className="VenueCard-polygonLocation">
-                                <label htmlFor="polygon-Location">Boundary coordinates</label>
-                                <textarea rows="4" value={this.state.description} name="polygon-Location" id="polygon-Location" onChange={this.handleChange}/>
+                                <label htmlFor="polygonLocation">Boundary coordinates</label>
+                                <textarea rows="4" value={this.state.polygonLocation} name="polygonLocation" id="polygonLocation" onChange={this.handleChange}/>
+                            </div>
+                            <div className="VenueCard-address">
+                                <label htmlFor="addressCountry">Country</label>
+                                <input type="text" name="addressCountry" id="addressCountry" onChange={this.handleChange} value={this.state.addressCountry} />
+                            </div>
+                            <div className="VenueCard-address">
+                                <label htmlFor="addressState">State</label>
+                                <input type="text" name="addressState" id="addressState" onChange={this.handleChange} value={this.state.addressState} />
+                            </div>
+                            <div className="VenueCard-address">
+                                <label htmlFor="addressStreet">Street</label>
+                                <input type="text" name="addressStreet" id="addressStreet" onChange={this.handleChange} value={this.state.addressStreet} />
+                            </div>
+                            <div className="VenueCard-address">
+                                <label htmlFor="addressZip">Zip</label>
+                                <input type="text" name="addressZip" id="addressZip" onChange={this.handleChange} value={this.state.addressZip} />
+                            </div>
+                            <div className="VenueCard-address">
+                                <label htmlFor="addressCity">City</label>
+                                <input type="text" name="addressCity" id="addressCity" onChange={this.handleChange} value={this.state.addressCity} />
                             </div>
                             
                         </div>
@@ -110,3 +137,4 @@ class Venue extends Component {
 }
 
 export default withAuth(Venue);
+
