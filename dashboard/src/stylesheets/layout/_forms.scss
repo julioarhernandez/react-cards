@@ -4,12 +4,14 @@ input[type=password]{
     height: 45px;
     border: 1px solid $primary-blue;
     padding: 0 10px;
+    font-size: 1rem;
 }
 textarea{
     width: calc(100% - 20px);
     height: 80px;
     border: 1px solid $primary-blue;
     padding: 0 10px;
+    font-size: 1rem;
 }
 label{
     font-weight: bold;
