@@ -2,7 +2,13 @@ var mongoose = require('mongoose');
 
 var VenueSchema = new mongoose.Schema({
     veName: String,
-    veSlug: String,
+    veSlug: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      index: true,
+      unique: true
+    },
     veLocation: {
       type: {type:String, default: "Point"}, 
       coordinates: [[[Number, Number]]]

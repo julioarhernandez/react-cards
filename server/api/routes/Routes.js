@@ -229,132 +229,55 @@ router.get('/:id', function(req, res, next) {
 router.post('/addvenue/',  auth.securedToken, function(req, res, next) {
   jwt.verify(req.token, auth.getSecureKey(), function(err, data){
     if (err){
-      res.sendStatus(403);
+      res.status(403).send({status: 'Forbidden'});
     }else{
+
+    // Coordinates comes in this format lat, long
+    // 25.75089,-80.38674 but mongoDb uses GeoJson
+    // coordinates as long, lat. Converting strings
+    // to floats otherwise mongodb will throw error
+
+    // One point location convertion
+    // format: lat, long 
+    let [ pointLat, pointLong ]= req.body.vePointLocation.split(',');
+
+    // Multiple points (boundaries)
+    // format: lat, long; lat, long; ...
+    let coordinates = req.body.veCoordinates;
+    let convertedCoordinates = [];
+
+    for( let val of coordinates.split(';')){
+      let [lat, long] = val.split(',');
+      convertedCoordinates.push([parseFloat(long), parseFloat(lat)])
+    }
+
         var venueToInsert = {
             veName: req.body.veName, 
             veSlug: req.body.veSlug, 
             veLocation: {
                 coordinates: [
-                    [
-                        req.body.veCoordinates
-                    ]
+                    convertedCoordinates 
                 ], 
                 type: "Polygon"
             }, 
             vePointLocation: {
-                coordinates: [
-                    req.body.vePointLocation
-                ], 
+                coordinates: [ parseFloat(pointLong), parseFloat(pointLat) ], 
                 type: "Point"
             }, 
             veAddress: {
-                country: req.body.veAddressCountry , 
-                state:  req.body.veAddressState, 
+                country: req.body.veAddressCountry || "US", 
+                state:  req.body.veAddressState || "FL", 
                 street:  req.body.veAddressStreet, 
                 zip:  req.body.veAddressZip, 
-                county: req.body.veAddressCounty 
+                county: req.body.veAddressCounty || "Miami"
             }
         };
+        // let venueToInsert = req.body;
+        // console.log(venueToInsert, req.body.veCoordinates);
         Venue.create(venueToInsert, function (err, post) {
             if (err) return next(err);
-            res.sendStatus(200);
+            res.status(200).send({status: 'Success'});
         });
-            // var objectToInsert = {
-            //   bizName: "BizName",
-            //   bizId: bizRandom,
-            //   bizWeb: "",
-            //   bizPhone: "",
-            //   bizLogo: "http://img-src",
-            //   bizPosition: 1,
-            //   bizAddress: {
-            //     country: "US",
-            //     state: "FL",
-            //     street: "",
-            //     zip: "",
-            //     county: "Miami"
-            //   },
-            //   bizLocation: {
-            //     type: "Point", 
-            //     coordinates: [-80.387772, 25.747206]
-            //   },
-            //   veName: "Venue-Name(Mall-name)",
-            //   veSlug: "ve1",
-            //   veLocation: {
-            //     type: "Polygon", 
-            //     coordinates: [[
-            //         [-80.387772, 25.747206],
-            //         [-80.387772, 25.747206],
-            //         [-80.387772, 25.747206],
-            //         [-80.387772, 25.747206],
-            //         [-80.387772, 25.747206]
-            //     ]]
-            //   },
-            //   cards: [
-            //     {
-            //       cardTitle: "",
-            //       cardContent: "",
-            //       cardImgSrc: "",
-            //       cardExpiration: "",
-            //       cardCoupon: "",
-            //       cardPosition: 1,
-            //       cardLink: "",
-            //       cardBundle: "1",
-            //       cardType: "1"
-            //     },
-            //     {
-            //       cardTitle: "",
-            //       cardContent: "",
-            //       cardImgSrc: "",
-            //       cardExpiration: "",
-            //       cardCoupon: "",
-            //       cardPosition: 2,
-            //       cardLink: "",
-            //       cardBundle: "1",
-            //       cardType: "1"
-            //     },
-            //     {
-            //       cardTitle: "",
-            //       cardContent: "",
-            //       cardImgSrc: "",
-            //       cardExpiration: "",
-            //       cardCoupon: "",
-            //       cardPosition: 3,
-            //       cardLink: "",
-            //       cardBundle: "1",
-            //       cardType: "1"
-            //     },
-            //     {
-            //       cardTitle: "",
-            //       cardContent: "",
-            //       cardImgSrc: "",
-            //       cardExpiration: "",
-            //       cardCoupon: "",
-            //       cardPosition: 4,
-            //       cardLink: "",
-            //       cardBundle: "1",
-            //       cardType: "1"
-            //     },
-            //     {
-            //       cardTitle: "",
-            //       cardContent: "",
-            //       cardImgSrc: "",
-            //       cardExpiration: "",
-            //       cardCoupon: "",
-            //       cardPosition: 5,
-            //       cardLink: "",
-            //       cardBundle: "1",
-            //       cardType: "1"
-            //     }
-            //   ]
-            // };
-      // Insert into db
-
-      // Cards.findByIdAndUpdate({_id: req.params.id}, {$push: {cards: req.body}}, function (err, post) {
-      //   if (err) return next(err);
-      //   res.json(post);
-      // });
-
     }
   });
 });
