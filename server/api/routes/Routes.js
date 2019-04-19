@@ -404,6 +404,10 @@ router.post('/addbiz', function(req, res, next) {
         var randomId = new random(random.engines.mt19937().autoSeed());
         var bizRandom = randomId.integer(100000, 999999);
 
+        // One point location convertion
+        // format: lat, long 
+        let [ pointLat, pointLong ]= req.body.bizCoordinates.split(',');
+
         // Get post params
         let bizName = req.body.bizName;
         let bizWeb = req.body.bizWeb;
@@ -414,7 +418,6 @@ router.post('/addbiz', function(req, res, next) {
         let bizStreet = req.body.bizStreet;
         let bizZip = req.body.bizZip;
         let bizCounty = req.body.bizCounty || "Miami";
-        let bizCoordinates = req.body.bizCoordinates;
         let bizVenueName = req.body.bizVenueName;
         let bizVenueSlug = req.body.bizVenueSlug;
         let bizCardAmount = req.body.bizCardAmount || 1;
@@ -457,13 +460,14 @@ router.post('/addbiz', function(req, res, next) {
             },
             bizLocation: {
                 type: "Point", 
-                coordinates: bizCoordinates
+                coordinates: [ parseFloat(pointLong), parseFloat(pointLat) ],
             },
             veName: bizVenueName,
             veSlug: bizVenueSlug,
             cards: cards
         };
 
+        console.log(objectToInsert);
         // // Insert into db
         // Cards.create(objectToInsert, function (err, post) {
         //     if (err) return next(err);
