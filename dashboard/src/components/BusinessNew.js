@@ -24,18 +24,46 @@ class BusinessNew extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.preventSubmit = this.preventSubmit.bind(this);
         this.validateInputs = this.validateInputs.bind(this);
+        this.checkVenueExistence = this.checkVenueExistence.bind(this);
 
     }
     preventSubmit(e){
         e.preventDefault();
     }
+    checkVenueExistence(e){
+        e.preventDefault();
+        // Get the parent venue of this location
+        if (this.state.bizLocation){
+            let [ lat, long] = this.state.bizLocation.split(',');
+            this.Auth.fetch(`${baseUrl}/api/cards/getparentvenue/${lat}/${long}`,{ 
+                method: 'GET'}).then(response => {
+                    if (response[0]){
+                        // reverse coordinates from long, lat to lat, long
+                        let [long, lat] = response[0].vePointLocation.coordinates;
+                        this.setState({ 
+                            bizVenueSlug: response[0].veSlug,
+                            bizVenueName: response[0].veName,
+                            bizVenueLocation: `${lat},${long}`,
+                            showAlerts: true,
+                            message: 'There is a Venue here, check the Venue fields are fill!'
+                        });
+                    }else {
+                        this.setState({ 
+                            showAlerts: true,
+                            message: 'There is no venue here. Create one before proceed!'
+                        });
+                    }
+                });
+        }
+    }
     validateInputs(){
-        return  this.state.name && 
-                this.state.slug && 
-                this.state.polygonLocation &&
-                this.state.pointLocation &&
-                this.state.addressStreet &&
-                this.state.addressZip
+        // return  this.state.name && 
+        //         this.state.slug && 
+        //         this.state.polygonLocation &&
+        //         this.state.pointLocation &&
+        //         this.state.addressStreet &&
+        //         this.state.addressZip
+        return true;
     }
     handleChange(e){
         this.setState(
@@ -55,13 +83,15 @@ class BusinessNew extends Component {
                     bizWeb: this.state.bizWeb,
                     bizPhone: this.state.bizPhone,
                     bizLogo: this.state.bizLogo,
-                    bizCountry: this.state.bizCountry,
-                    bizState: this.state.bizState,
-                    bizStreet: this.state.bizStreet,
-                    bizZip: this.state.bizZip,
-                    bizCounty: this.state.bizCounty,
+                    bizCountry: this.state.addressCountry,
+                    bizState: this.state.addressState,
+                    bizStreet: this.state.addressStreet,
+                    bizZip: this.state.addressZip,
+                    bizLocation: this.state.bizLocation,
+                    bizCounty: this.state.addressCounty,
                     bizVenueName: this.state.bizVenueName,
                     bizVenueSlug: this.state.bizVenueSlug,
+                    bizVenueLocation: this.state.bizVenueLocation,
                     bizCardAmount: this.state.bizCardAmount
                 })
             }).then(response => {
@@ -113,23 +143,11 @@ class BusinessNew extends Component {
                                 <label htmlFor="bizLogo">Logo</label>
                                 <input type="text" name="bizLogo" id="bizLogo" onChange={this.handleChange} value={this.state.bizLogo}/>
                             </div>
-                            <div className="BusinessCardNew-slug">
-                                <label htmlFor="bizVenueName">Venue Name</label>
-                                <input type="text" name="bizVenueName" id="bizVenueName" onChange={this.handleChange} value={this.state.bizVenueName}/>
-                            </div>
-                            <div className="BusinessCardNew-slug">
-                                <label htmlFor="bizVenueSlug">Venue Slug</label>
-                                <input type="text" name="bizVenueSlug" id="bizVenueSlug" onChange={this.handleChange} value={this.state.bizVenueSlug}/>
-                            </div>
                             <div className="BusinessCardNew-pointLocation">
-                                <label htmlFor="pointLocation">Point Location</label>
-                                <input type="text" name="pointLocation" id="pointLocation" onChange={this.handleChange} value={this.state.pointLocation} placeholder="lat,long"/>
+                                <label htmlFor="bizLocation">Biz Point Location</label>
+                                <input type="text" name="bizLocation" id="bizLocation" onChange={this.handleChange} value={this.state.bizLocation} placeholder="lat,long"/>
+                                <a href="#" alt="Check if there is a venue here" title="Check if there is a venue here" onClick={this.checkVenueExistence}>Is here a venue?</a>
                             </div>
-                            <div className="BusinessCardNew-polygonLocation">
-                                <label htmlFor="polygonLocation">Boundary coordinates</label>
-                                <textarea rows="4" value={this.state.polygonLocation} name="polygonLocation" id="polygonLocation" onChange={this.handleChange} placeholder="lat,long;lat,long;...lat,long"/>
-                            </div>
-
                             <div className="BusinessCardNew-address">
                                 <label htmlFor="addressStreet">Street</label>
                                 <input type="text" name="addressStreet" id="addressStreet" onChange={this.handleChange} value={this.state.addressStreet} />
@@ -150,6 +168,19 @@ class BusinessNew extends Component {
                                 <label htmlFor="addressCountry">Country</label>
                                 <input type="text" name="addressCountry" id="addressCountry" onChange={this.handleChange} value={this.state.addressCountry} placeholder="Default:US"/>
                             </div>
+                            <div className="BusinessCardNew-slug">
+                                <label htmlFor="bizVenueName">Venue Name</label>
+                                <input type="text" name="bizVenueName" id="bizVenueName" onChange={this.handleChange} value={this.state.bizVenueName}/>
+                            </div>
+                            <div className="BusinessCardNew-slug">
+                                <label htmlFor="bizVenueSlug">Venue Slug</label>
+                                <input type="text" name="bizVenueSlug" id="bizVenueSlug" onChange={this.handleChange} value={this.state.bizVenueSlug}/>
+                            </div>
+                            <div className="BusinessCardNew-pointLocation">
+                                <label htmlFor="bizVenueLocation">Venue Point Location</label>
+                                <input type="text" name="bizVenueLocation" id="bizVenueLocation" onChange={this.handleChange} value={this.state.bizVenueLocation} placeholder="lat,long"/>
+                            </div>
+                            
                         </div>
                         <div className="BusinessCardNew-aside">
                             <Link to="#" className="btn btn-blue -block" onClick={this.handleFormSubmit}>

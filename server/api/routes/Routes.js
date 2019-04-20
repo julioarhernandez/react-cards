@@ -217,6 +217,20 @@ router.get('/getlinks/:latid/:longid', function(req, res, next) {
   });
 });
 
+/* GET venue surrounding certain lat long */
+router.get('/getparentvenue/:latid/:longid', function(req, res, next) {
+  Venue.find({veLocation:
+    {$geoIntersects:
+        {$geometry:{ "type" : "Point",
+             "coordinates" : [ req.params.longid, req.params.latid ] }
+         }
+     }
+  }, { veSlug: 1, veName: 1, vePointLocation: 1}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
 /* GET venue links by lat and long */
 router.get('/:id', function(req, res, next) {
   Cards.findById(req.params.id, function (err, post) {
@@ -399,6 +413,7 @@ router.post('/addbiz', function(req, res, next) {
     //     if (err){
     //     res.sendStatus(403);
     //     }else{
+      // console.log(req.body);
         // // Create random biz id
         // What is this randomId for?
         var randomId = new random(random.engines.mt19937().autoSeed());
@@ -406,7 +421,7 @@ router.post('/addbiz', function(req, res, next) {
 
         // One point location convertion
         // format: lat, long 
-        let [ pointLat, pointLong ]= req.body.bizCoordinates.split(',');
+        let [ pointLat, pointLong ]= req.body.bizLocation.split(',');
 
         // Get post params
         let bizName = req.body.bizName;
@@ -439,7 +454,7 @@ router.post('/addbiz', function(req, res, next) {
         let cards = [];
         for( var i=1; i<= bizCardAmount; ++i){
             let tempCard = Object.assign({}, card);
-            tempCard.cardPos = i;
+            tempCard.cardPosition = i;
             cards.push(tempCard);
         }
 
@@ -467,12 +482,12 @@ router.post('/addbiz', function(req, res, next) {
             cards: cards
         };
 
-        console.log(objectToInsert);
         // // Insert into db
-        // Cards.create(objectToInsert, function (err, post) {
-        //     if (err) return next(err);
-        //     res.sendStatus(200);
-        // });
+        Cards.create(objectToInsert, function (err, post) {
+            if (err) return next(err);
+            // res.sendStatus(200);
+            return res.status(200).send({status: 'Success'});
+        });
 
         // retreive the form data
         // let cardId = req.body.cardId;
@@ -522,7 +537,7 @@ router.post('/addbiz', function(req, res, next) {
         //                 return res.status(400).send({status: 'Error'});
         //             }
         //             else{
-        //                 return res.status(200).send({status: 'Success'});
+                        // return res.status(200).send({status: 'Success'});
         //         }
         //     });
         // }
