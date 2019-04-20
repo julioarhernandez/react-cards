@@ -212,7 +212,7 @@ router.get('/getlinks/:latid/:longid', function(req, res, next) {
      }
   }, { veSlug: 1}, function (err, post) {
     if (err) return next(err);
-    post = post == "" ? "#" : "https://dealby.us/showvenue/" + post[0].veSlug;
+    post = post == "" ? "#" : "https://www.dealby.us/showvenue/" + post[0].veSlug;
     res.json(post);
   });
 });
