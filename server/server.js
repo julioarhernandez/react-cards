@@ -9,7 +9,10 @@ var rateLimit = require("express-rate-limit");
 dotenv.config();
 
 mongoose.Promise = require('bluebird');
-mongoose.connect( process.env.DB_URI, { useMongoClient: true, promiseLibrary: require('bluebird') })
+mongoose.connect( process.env.DB_URI, { 
+    useCreateIndex: true, 
+    useNewUrlParser: true, 
+    promiseLibrary: require('bluebird') })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
