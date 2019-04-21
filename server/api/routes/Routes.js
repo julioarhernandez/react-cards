@@ -57,7 +57,7 @@ router.get('/getbizcards/:bizId', function(req, res, next) {
 });
 
 /* GET single card BY CARD ID */
-router.get('/getcard/:cardId', auth.securedToken, function(req, res, next) {
+router.get('/getcard/:cardId', function(req, res, next) {
   cardId = new ObjectId(req.params.cardId);
   Cards.aggregate([
     {$unwind: "$cards" },
